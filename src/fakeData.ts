@@ -4,15 +4,31 @@ export interface Menu {
 
 
 export interface User {
-  name: string;
-  age?: number;
-  email?: string;
+  id:number;
+  firstName: string;
+  lastName: string;
+ 
 }
 
 export const fakeUsers: User[] = [
-  {name: 'Alice', age: 25},
-  {name: 'Bob', age: 30},
-  {name: 'Charlie', age: 35},
-  {name: 'David', age: 40},
-  {name: 'Eve', age: 45},
+  {
+    id: 1,
+    firstName: 'John',
+    lastName: 'Doe',
+  },
+  {
+    id: 2,
+    firstName: 'Jane',
+    lastName: 'Doe',
+  },
+  {
+    id: 3,
+    firstName: 'John',
+    lastName: 'Smith',
+  },
+  {
+    id: 4,
+    firstName: 'Jane',
+    lastName: 'Smith',
+  },
 ];

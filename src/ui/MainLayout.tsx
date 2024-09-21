@@ -1,36 +1,43 @@
 import { FC } from 'react';
 import { Outlet } from '@tanstack/react-router';
 import { MainNavBar } from './MainNavBar.tsx';
-import { Grid, GridItem } from '@chakra-ui/react';
+import { Box, Center, Flex, Spacer } from '@chakra-ui/react';
+import styled from 'styled-components';
+
+const StyledHeader = styled(Box)`
+  background-color: #05d9f5;
+  margin: 0px;
+  `
 
 
 export const MainLayout : FC = () => {
   return (
     <>
-    {/* <StyledMainLayout>
-      <MainNavBar/>
-      <Outlet/>
-      <Spacer />
-      <footer>Footer</footer>
-    </StyledMainLayout> */}
-    <Grid templateAreas={`"nav nav" "main main" "footer footer"`} 
-    gridTemplateRows={`1fr 20fr 1fr`}
-    gridTemplateColumns={`1fr 1fr`}
-    h={'100vh'}
-    gap={1}
-    >
-      <GridItem area={'nav'} >
+
+      <Flex direction={'column'} height={'100vh'} minHeight={'700px'} margin={0}>
+
+      <StyledHeader>
+        <Center >
+        Header
+        </Center>
+
+      </StyledHeader>
+
+      <Box>
         <MainNavBar/>
-      </GridItem> 
-      <GridItem area={'main'} >
+      </Box>
+
+      <Box>
         <Outlet/>
-      </GridItem> 
-      <GridItem area={'footer'} >
-        <div >Footer</div>
-      </GridItem> 
+      </Box>
 
-    </Grid>
+      <Spacer/>
 
+      <Box bg={'red'}>
+        Footer
+        </Box>
+
+      </Flex>
     </>
   )
 }

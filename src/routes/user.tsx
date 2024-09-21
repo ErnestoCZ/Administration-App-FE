@@ -1,6 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { FC } from 'react'
 import { fakeUsers, User } from '../fakeData'
+import { Box } from '@chakra-ui/react'
+import styled from 'styled-components'
+import { UserInputForm } from '../components/UserInputForm'
+import { UserList } from '../components/UserList'
+import { UserListItem } from '../components/UserListItem'
 
 export const Route = createFileRoute('/user')({
   component: () => <UserPage/>,
@@ -12,23 +17,41 @@ export const Route = createFileRoute('/user')({
   },
 })
 
-const UserPage: FC = () => {
-  const users = Route.useLoaderData();
-  console.log(users)
-  if (!users) {
-    return <div>Loading...</div>
-  }
 
+const UserPageWrapper = styled(Box)`
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+height: auto;
+`
+
+const ContentBox = styled(Box)`
+flex-direction: column;
+background-color: aliceblue;
+padding: 10vh;
+border-radius: 1vh;
+margin: 0px;
+padding: 0%;
+width: 100%;
+`
+const UserPage: FC = () => {
+  const users = Route.useLoaderData<User[]>();
   return (
     <>
-      <div>
-        <h1>Users</h1>
-        <ul>
-          {users.map((user) => (
-            <li key={user.name}>{user.name}</li>
-          ))}
-        </ul>
-      </div>
+    <UserPageWrapper>
+
+      <ContentBox>
+        <UserInputForm/>
+
+          <UserList>
+
+            {users.map( (user) => (<UserListItem key={user.id} user={user}/>))}
+
+          </UserList>
+
+      </ContentBox>
+      
+    </UserPageWrapper>
     </>
   )
 }
