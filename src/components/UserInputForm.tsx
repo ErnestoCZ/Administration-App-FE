@@ -30,19 +30,18 @@ export const UserInputForm : FC = () => {
 
     <Flex direction={'column'}>
         <FormLabel htmlFor='firstName'>First Name</FormLabel>
-        <Input id='firstName' {...register('firstName',{required:true})}/>
+        <Input type='text' id='firstName' {...register('firstName',{required:true, })}/>
         <FormLabel htmlFor='lastName'>Last Name</FormLabel>
-        <Input id='lastName' {...register("lastName", {required:true})}/>
+        <Input type='text' id='lastName' {...register("lastName", {required:true})}/>
     </Flex>
     <Flex direction={'row'} m={1}>
     <select {...register('status',{required:true})}>
         <option value='active'>Active</option>
         <option value='inactive'>Inactive</option>
-        <option value='AH'>AH</option>
     </select>
     </Flex>
 
-    <Button type='submit' colorScheme='green' m={2}>Submit</Button>
+    <Button type='submit' variant={'submit'} m={2}>Submit</Button>
     </Flex>
     <DevTool control={control}/>
 </FormControl>

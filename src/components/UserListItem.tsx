@@ -26,8 +26,8 @@ export const UserListItem : FC<UserListItemProps> = ({user}) => {
             </Box>
             <Spacer/>
             <Box>
-                <Button colorScheme='white'>Edit</Button>
-                <Button colorScheme='red'>Delete</Button>
+                <Button variant={'edit'}>Edit</Button>
+                <Button variant={'delete'}>Delete</Button>
             </Box>
 
         </Flex>

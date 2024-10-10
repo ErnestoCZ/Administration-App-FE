@@ -2,6 +2,7 @@ import {styled} from 'styled-components';
 import { FC } from 'react';
 import { Link } from '@tanstack/react-router';
 import { Box, Divider, Spacer } from '@chakra-ui/react';
+import { ArrowBackIcon } from '@chakra-ui/icons';
 
 const StyledMainNavBar = styled.div`
   display: flex;
@@ -28,6 +29,12 @@ export const MainNavBar: FC = () => {
 
       <StyledMainNavBar>
 
+
+        <StyledNavBarBox>
+          <Link to="/">
+            <ArrowBackIcon/>
+          </Link>
+          </StyledNavBarBox>
         <StyledNavBarBox>
           <Link to="/user">User</Link>
         </StyledNavBarBox>

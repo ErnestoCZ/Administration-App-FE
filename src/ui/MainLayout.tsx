@@ -13,7 +13,6 @@ const StyledHeader = styled(Box)`
 export const MainLayout : FC = () => {
   return (
     <>
-
       <Flex direction={'column'} height={'100vh'} minHeight={'700px'} margin={0}>
 
       <StyledHeader>
@@ -30,13 +29,10 @@ export const MainLayout : FC = () => {
       <Box>
         <Outlet/>
       </Box>
-
-      <Spacer/>
-
-      <Box bg={'red'}>
+      <Spacer></Spacer>
+      <Box bg={'#05d9f5'} height={'5vh'} display={'flex'} justifyContent={'center'} >
         Footer
         </Box>
-
       </Flex>
     </>
   )
