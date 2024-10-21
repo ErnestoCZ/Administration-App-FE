@@ -1,8 +1,9 @@
-import { Box, Button } from '@chakra-ui/react'
 import { createFileRoute } from '@tanstack/react-router'
 import { FC } from 'react'
-import styled from 'styled-components'
 import { Billing, fakeBillings } from '../fakeData'
+import { Box, Button, Flex } from '@chakra-ui/react'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { DevTool } from '@hookform/devtools'
 
 export const Route = createFileRoute('/billings')({
   component: () => <BillingsPage/>,
@@ -11,49 +12,51 @@ export const Route = createFileRoute('/billings')({
   }
 })
 
-const BillingsPageWrapper = styled(Box)`
-display: flex;
-flex-direction: row;
-justify-content: space-between;
-align-items: center;
-height: 40vh;
-width: 100%;
-`
 
-const ContentBox = styled(Box)`
-flex-direction: column;
-background-color: aliceblue;
-height: 100%;
-min-width: 30%;
-width: 30%;
-`
-const BillingBox = styled(Box)`
-flex-direction: column;
-background-color: aliceblue;
-height: 100%;
-min-width: 65%;`
+type FilterFormData = {
+  dateFrom: string;
+  dateTo: string;
+}
 
 export const BillingsPage : FC = () => {
   const billings = Route.useLoaderData<Billing[]>();
+  const {control, handleSubmit, register} = useForm();
+
+  const onSubmitHandler : SubmitHandler<FilterFormData>= (data: FilterFormData) => {
+    console.log(data);
+  }
+
   return (
-
-
     <>
-  <BillingsPageWrapper>
-
-    <ContentBox >
-
-    <Box>Filter</Box>
-    <Box>Overview</Box>
-    <Button variant={'base'}>Hallo</Button>
-    </ContentBox>
-
-    <BillingBox>
-    {billings.map((billing) => <Box key={billing.id}>{billing.title}</Box>)}
-    </BillingBox>
-
-  </BillingsPageWrapper>
     
+    <Box flexDirection={'column'} flex={'1 1 auto'} margin={'1vh'} padding={'1vh'} background={'gray.100'} borderRadius={'2vh'}>
+      <form onSubmit={handleSubmit(onSubmitHandler)}>
+        <Flex flexDirection={'column'} >
+          <label>Filter</label>
+
+          <label >Date</label>
+          <label htmlFor='dateFrom'>From:</label>
+          <input type='date' {...register('dateFrom',{required:true})}/>
+          <label htmlFor='dateTo'>To:</label>
+          <input type='date' {...register('dateTo',{required:true})}/>
+          <label>Amount</label>
+          <label htmlFor='amountFrom'>From</label>
+          <input type='number' {...register('amountFrom')}/>
+          <label htmlFor='amountTo'>To:</label>
+          <input type='number' {...register('amountTo')}/>
+          <Flex>
+          <Button type='submit'>Filter</Button>
+          <Button type='reset' variant={'reset'} >Reset</Button>
+          </Flex>
+          
+        </Flex>
+      </form>
+    </Box>
+    <Box borderRadius={'2vh'} flexDirection={'column'} flex={'6 1 auto'} background={'gray.100'} margin={'1vh'}>
+      {billings.map((billing) => <Box borderRadius={'5px'} margin={'1vh'} padding={'1vh'} background={'primary'}>{billing.title}</Box>)}
+    </Box>
+    <DevTool control={control}/>
+
     </>
   )
 }

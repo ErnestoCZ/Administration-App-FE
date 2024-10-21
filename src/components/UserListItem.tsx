@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { User } from '../fakeData'
-import { Box, Button, Flex, Spacer } from '@chakra-ui/react'
+import { Box, Button, Flex } from '@chakra-ui/react'
 import styled from 'styled-components'
 
 const StyledUserListItem = styled(Box)`
@@ -20,15 +20,14 @@ export const UserListItem : FC<UserListItemProps> = ({user}) => {
   return (
     <StyledUserListItem>
 
-        <Flex flexDirection={'row'}>
-            <Box>
-                {user.firstName}  {user.lastName}
-            </Box>
-            <Spacer/>
-            <Box>
-                <Button variant={'edit'}>Edit</Button>
-                <Button variant={'delete'}>Delete</Button>
-            </Box>
+        <Flex flexDirection={'row'} justifyContent={'space-between'}>
+            <Flex alignItems={'center'} flex={'20 1 auto'}>
+                {user.firstName}  {user.lastName} 
+            </Flex>
+            <Flex flex={'1 1 auto'} justifyContent={'space-evenly'}>
+                <Button  variant={'edit'}>Edit</Button>
+                <Button  variant={'delete'}>Delete</Button>
+            </Flex>
 
         </Flex>
     </StyledUserListItem>

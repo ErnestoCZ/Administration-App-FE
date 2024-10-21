@@ -2,12 +2,8 @@ import { FC } from 'react';
 import { Outlet } from '@tanstack/react-router';
 import { MainNavBar } from './MainNavBar.tsx';
 import { Box, Center, Flex, Spacer } from '@chakra-ui/react';
-import styled from 'styled-components';
-
-const StyledHeader = styled(Box)`
-  background-color: #05d9f5;
-  margin: 0px;
-  `
+import { StyledHeader } from '../components/styles/Header.styled.ts';
+import { OutletWrapper } from '../components/styles/Box.styled.ts';
 
 
 export const MainLayout : FC = () => {
@@ -19,18 +15,16 @@ export const MainLayout : FC = () => {
         <Center >
         Header
         </Center>
-
       </StyledHeader>
 
       <Box>
         <MainNavBar/>
       </Box>
-
-      <Box>
+      <OutletWrapper>
         <Outlet/>
-      </Box>
+      </OutletWrapper>
       <Spacer></Spacer>
-      <Box bg={'#05d9f5'} height={'5vh'} display={'flex'} justifyContent={'center'} >
+      <Box bg={'primary'} height={'5vh'} display={'flex'} justifyContent={'center'} >
         Footer
         </Box>
       </Flex>
