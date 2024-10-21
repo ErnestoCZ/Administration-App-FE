@@ -9,7 +9,7 @@ import { OutletWrapper } from '../components/styles/Box.styled.ts';
 export const MainLayout : FC = () => {
   return (
     <>
-      <Flex direction={'column'} height={'100vh'} minHeight={'700px'} margin={0}>
+      <Flex direction={'column'} height={'100vh'} minHeight={'700px'} minWidth={'1000px'} margin={0}>
 
       <StyledHeader>
         <Center >

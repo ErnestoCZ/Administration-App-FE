@@ -21,7 +21,7 @@ const UserPage: FC = () => {
   const users = Route.useLoaderData<User[]>();
   return (
     <>
-      <Box display={'flex'} flexDirection={'column'} justifyContent={'flex-start'} flex={'1 1 auto'}>
+      <Box display={'flex'} flexDirection={'column'} justifyContent={'flex-start'} flex={'1 1 auto'}  backgroundColor={'grey.100'}>
         <UserInputForm/>
           <UserList>
             {users.map( (user) => (<UserListItem key={user.id} user={user}/>))}

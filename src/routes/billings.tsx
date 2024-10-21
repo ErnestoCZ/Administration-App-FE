@@ -4,6 +4,7 @@ import { Billing, fakeBillings } from '../fakeData'
 import { Box, Button, Flex } from '@chakra-ui/react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { DevTool } from '@hookform/devtools'
+import { ArrowForwardIcon } from '@chakra-ui/icons'
 
 export const Route = createFileRoute('/billings')({
   component: () => <BillingsPage/>,
@@ -53,7 +54,7 @@ export const BillingsPage : FC = () => {
       </form>
     </Box>
     <Box borderRadius={'2vh'} flexDirection={'column'} flex={'6 1 auto'} background={'gray.100'} margin={'1vh'}>
-      {billings.map((billing) => <Box borderRadius={'5px'} margin={'1vh'} padding={'1vh'} background={'primary'}>{billing.title}</Box>)}
+      {billings.map((billing) => <Box borderRadius={'5px'} margin={'1vh'} padding={'1vh'} background={'primary'} display={'flex'} justifyContent={'space-between'}><Box>{billing.month}</Box><ArrowForwardIcon/></Box>)}
     </Box>
     <DevTool control={control}/>
 
