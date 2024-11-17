@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { Billing, fakeBillings, fakeUsers , User} from '../fakeData'
+import { Billing, fakeBillings } from '../fakeData'
 export const Route = createFileRoute('/billing/$billingId')({
   loader: ( {params} ) : Billing | undefined => {
 
@@ -11,8 +11,6 @@ export const Route = createFileRoute('/billing/$billingId')({
 
 
 export const BillingByIdComponent = () => {
-
-  const users : User[] = fakeUsers; 
   const {billingId} = Route.useParams();
   return (
     <div>
