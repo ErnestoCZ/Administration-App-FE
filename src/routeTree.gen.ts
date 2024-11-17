@@ -15,6 +15,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRoute } from './routes/__root'
 import { Route as UserImport } from './routes/user'
 import { Route as BillingsImport } from './routes/billings'
+import { Route as BillingBillingIdImport } from './routes/billing.$billingId'
 
 // Create Virtual Routes
 
@@ -42,6 +43,11 @@ const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const BillingBillingIdRoute = BillingBillingIdImport.update({
+  path: '/billing/$billingId',
+  getParentRoute: () => rootRoute,
+} as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -75,6 +81,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutLazyImport
       parentRoute: typeof rootRoute
     }
+    '/billing/$billingId': {
+      id: '/billing/$billingId'
+      path: '/billing/$billingId'
+      fullPath: '/billing/$billingId'
+      preLoaderRoute: typeof BillingBillingIdImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -85,6 +98,7 @@ export interface FileRoutesByFullPath {
   '/billings': typeof BillingsRoute
   '/user': typeof UserRoute
   '/about': typeof AboutLazyRoute
+  '/billing/$billingId': typeof BillingBillingIdRoute
 }
 
 export interface FileRoutesByTo {
@@ -92,6 +106,7 @@ export interface FileRoutesByTo {
   '/billings': typeof BillingsRoute
   '/user': typeof UserRoute
   '/about': typeof AboutLazyRoute
+  '/billing/$billingId': typeof BillingBillingIdRoute
 }
 
 export interface FileRoutesById {
@@ -100,14 +115,21 @@ export interface FileRoutesById {
   '/billings': typeof BillingsRoute
   '/user': typeof UserRoute
   '/about': typeof AboutLazyRoute
+  '/billing/$billingId': typeof BillingBillingIdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/billings' | '/user' | '/about'
+  fullPaths: '/' | '/billings' | '/user' | '/about' | '/billing/$billingId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/billings' | '/user' | '/about'
-  id: '__root__' | '/' | '/billings' | '/user' | '/about'
+  to: '/' | '/billings' | '/user' | '/about' | '/billing/$billingId'
+  id:
+    | '__root__'
+    | '/'
+    | '/billings'
+    | '/user'
+    | '/about'
+    | '/billing/$billingId'
   fileRoutesById: FileRoutesById
 }
 
@@ -116,6 +138,7 @@ export interface RootRouteChildren {
   BillingsRoute: typeof BillingsRoute
   UserRoute: typeof UserRoute
   AboutLazyRoute: typeof AboutLazyRoute
+  BillingBillingIdRoute: typeof BillingBillingIdRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -123,6 +146,7 @@ const rootRouteChildren: RootRouteChildren = {
   BillingsRoute: BillingsRoute,
   UserRoute: UserRoute,
   AboutLazyRoute: AboutLazyRoute,
+  BillingBillingIdRoute: BillingBillingIdRoute,
 }
 
 export const routeTree = rootRoute
@@ -140,7 +164,8 @@ export const routeTree = rootRoute
         "/",
         "/billings",
         "/user",
-        "/about"
+        "/about",
+        "/billing/$billingId"
       ]
     },
     "/": {
@@ -154,6 +179,9 @@ export const routeTree = rootRoute
     },
     "/about": {
       "filePath": "about.lazy.tsx"
+    },
+    "/billing/$billingId": {
+      "filePath": "billing.$billingId.tsx"
     }
   }
 }
