@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import { FC } from 'react'
 import { Billing, fakeBillings } from '../fakeData'
 import { Box, Button, Flex } from '@chakra-ui/react'
@@ -54,8 +54,9 @@ export const BillingsPage : FC = () => {
       </form>
     </Box>
     <Box borderRadius={'2vh'} flexDirection={'column'} flex={'6 1 auto'} background={'gray.100'} margin={'1vh'}>
-      {billings.map((billing) => <Box borderRadius={'5px'} margin={'1vh'} padding={'1vh'} background={'primary'} display={'flex'} justifyContent={'space-between'}><Box>{billing.month}</Box><ArrowForwardIcon/></Box>)}
+      {billings.map((billing) => <Box borderRadius={'5px'} margin={'1vh'} padding={'1vh'} background={'primary'} display={'flex'} justifyContent={'space-between'}><Box>{billing.month} {billing.amount}</Box><Link to={`/billing/${billing.id}`}><ArrowForwardIcon/></Link></Box>)}
     </Box>
+    
     <DevTool control={control}/>
 
     </>
