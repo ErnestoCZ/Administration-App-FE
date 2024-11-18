@@ -15,6 +15,8 @@
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@hookform/devtools": "^4.3.1",
+    "@tanstack/react-query": "^5.60.5",
+    "@tanstack/react-query-devtools": "^5.60.5",
     "@tanstack/react-router": "^1.57.18",
     "framer-motion": "^11.5.4",
     "react": "^18.3.1",
@@ -25,6 +27,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
+    "@tanstack/eslint-plugin-query": "^5.60.1",
     "@tanstack/router-devtools": "^1.57.18",
     "@tanstack/router-plugin": "^1.57.15",
     "@types/react": "^18.3.3",
