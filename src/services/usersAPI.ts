@@ -2,6 +2,8 @@ import { UserInputFormData } from '../models/types';
 import { User, UserList } from '../models/types';
 import { baseAddress } from './apiConstants';
 
+export const fetchAllUsersKey = 'users';
+
 export async function getUsers(): Promise<User[]> {
   const res = await fetch(`${baseAddress}/users`, {
     method: 'GET',
@@ -30,4 +32,16 @@ export async function addUser(user: UserInputFormData): Promise<User> {
   }
 
   return await User.parse(await res.json());
+}
+
+export async function deleteUser(id: string): Promise<void> {
+  const res = await fetch(`${baseAddress}/users/${id}`, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+  });
+
+  if (!res.ok) {
+    throw new Error('Error deleting user');
+  }
+  return await res.json();
 }
