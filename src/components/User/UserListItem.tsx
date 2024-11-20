@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { User } from '../models/types';
+import { User } from '../../models/types';
 import { Box, Button, Flex } from '@chakra-ui/react';
 import styled from 'styled-components';
 import { Link } from '@tanstack/react-router';
