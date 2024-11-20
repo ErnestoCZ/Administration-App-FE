@@ -1,12 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { FC } from 'react';
-import { User } from '../models/types';
 import { UserInputForm } from '../components/UserInputForm';
 import { UserList } from '../components/UserList';
 import { UserListItem } from '../components/UserListItem';
 import { Box } from '@chakra-ui/react';
 import { getUsers } from '../services/usersAPI';
 import { useQuery } from '@tanstack/react-query';
+import { LoaderComponent } from '../components/LoaderComponent';
 
 export const Route = createFileRoute('/user')({
   component: () => <UserPage />,
@@ -15,13 +15,8 @@ export const Route = createFileRoute('/user')({
 const UserPage: FC = () => {
 
   const queryAllUser = useQuery({queryKey: ['users'], queryFn: getUsers});
-    const status = queryAllUser.status;
     const users = queryAllUser.data;
-    if(!users) {
-      return <div>No users found</div>
-    }
-
-
+    //TODO make sure users is not undefined
     return (
       <>
         <Box
@@ -32,9 +27,8 @@ const UserPage: FC = () => {
           backgroundColor={'grey.100'}
         >
           <UserInputForm />
-          {queryAllUser.isLoading && <div>Loading...</div>}
           <UserList>
-            {users.map((user) => (
+            {queryAllUser.isLoading ? <LoaderComponent/> :users.map((user) => (
               <UserListItem key={user.id} user={user} />
             ))}
           </UserList>
