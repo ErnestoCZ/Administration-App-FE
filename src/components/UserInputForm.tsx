@@ -11,16 +11,20 @@ import { FC } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { UserInputFormData } from '../models/types';
 import { addUser } from '../services/usersAPI';
-import { User } from '../models/types';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export const UserInputForm: FC = () => {
   const { control, register, handleSubmit } = useForm<UserInputFormData>();
+  const queryClient = useQueryClient();
+  const mutation = useMutation({mutationFn: addUser ,onSuccess: () => queryClient.invalidateQueries({queryKey: ['users']}), onMutate: (data) => {console.log('onMutate', data);}, onError: (error) => {console.log('onError', error);}, onSettled: (data, error) => {console.log('onSettled', data, error);}});
+
+
 
   const onSubmitHandler: SubmitHandler<UserInputFormData> = async (
     data: UserInputFormData,
   ) => {
-    const createdUser: User = await addUser(data);
-    console.log(createdUser);
+
+    mutation.mutate(data);
   };
 
   return (
