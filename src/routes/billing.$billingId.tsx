@@ -1,21 +1,17 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { Billing, fakeBillings } from '../fakeData'
+import { createFileRoute } from '@tanstack/react-router';
+import { Billing, fakeBillings } from '../fakeData';
 export const Route = createFileRoute('/billing/$billingId')({
-  loader: ( {params} ) : Billing | undefined => {
-
-    const foundBilling = fakeBillings.find((billing) => billing.id === Number(params.billingId));
+  loader: ({ params }): Billing | undefined => {
+    const foundBilling = fakeBillings.find(
+      (billing) => billing.id === Number(params.billingId),
+    );
     return foundBilling;
   },
-  component: () => <BillingByIdComponent/>,
-})
-
+  component: () => <BillingByIdComponent />,
+});
 
 export const BillingByIdComponent = () => {
-  const {billingId} = Route.useParams();
-  return (
-    <div>
-      <h1>{billingId}
-      </h1>
-    </div>
-  )
-}
+  const billing = Route.useLoaderData<Billing>();
+
+  return <div></div>;
+};

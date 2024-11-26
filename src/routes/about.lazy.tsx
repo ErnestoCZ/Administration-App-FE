@@ -1,9 +1,10 @@
-import { createLazyFileRoute } from '@tanstack/react-router'
-import { DeleteButton } from '../components/styles/Button.styled'
+import { UserSelect } from '@/components/User/UserSelect';
+import { createLazyFileRoute } from '@tanstack/react-router';
 
 export const Route = createLazyFileRoute('/about')({
-  component: () => 
+  component: () => (
     <>
-      <h1>About</h1>
-    </>,
-})
+      <UserSelect />
+    </>
+  ),
+});
