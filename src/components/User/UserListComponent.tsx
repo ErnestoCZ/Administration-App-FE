@@ -1,5 +1,6 @@
-import React, { FC, PropsWithChildren } from 'react';
+import { FC, PropsWithChildren } from 'react';
+import { FlexBox } from '../styles/Box.styled';
 
-export const UserListComponent: FC<PropsWithChildren> = ({ children }) => {
-  return <div>{children}</div>;
+export const List: FC<PropsWithChildren> = ({ children }) => {
+  return <FlexBox $direction={'column'}>{children}</FlexBox>;
 };
