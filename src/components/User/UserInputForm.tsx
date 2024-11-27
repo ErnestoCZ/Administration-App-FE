@@ -1,12 +1,13 @@
 import { DevTool } from '@hookform/devtools';
 import { FC } from 'react';
-import { SubmitHandler, useForm, FormProvider } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { UserInputFormData } from '../../models/types';
 import { addUser } from '../../services/usersAPI';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { FlexBox } from '../styles/Box.styled';
 import { StyledSelect } from '../styles/Select.styled';
-import { InputFieldComponent } from '../Form/InputFieldComponent';
+import { Button } from '../Button';
+import { Stack } from '../Stack';
 
 export const UserInputForm: FC = () => {
   const methods = useForm<UserInputFormData>();
@@ -32,39 +33,22 @@ export const UserInputForm: FC = () => {
   };
 
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmitHandler)}>
-        <FlexBox $direction="column">
-          <FlexBox $direction="column">
-            <InputFieldComponent
-              name={'First Name'}
-              htmlId={'firstName'}
-              type={'text'}
-            />
-            <InputFieldComponent
-              name={'Last Name'}
-              htmlId={'lastName'}
-              type={'text'}
-            />
-            <InputFieldComponent
-              name={'Email'}
-              htmlId={'email'}
-              type={'email'}
-            />
-          </FlexBox>
-          <FlexBox>
-            <StyledSelect {...methods.register('status', { required: true })}>
-              <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
-            </StyledSelect>
-          </FlexBox>
-          <FlexBox $direction="row">
-            <button type="reset">Reset</button>
-            <button type="submit">Add</button>
-          </FlexBox>
+    <form onSubmit={methods.handleSubmit(onSubmitHandler)}>
+      <FlexBox $direction="column">
+        <FlexBox>
+          <StyledSelect {...methods.register('status', { required: true })}>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+          </StyledSelect>
         </FlexBox>
-        <DevTool control={methods.control} />
-      </form>
-    </FormProvider>
+        <Stack direction={'row'}>
+          <Button type={'reset'}>Reset</Button>
+          <Button type={'submit'} style={'secondary'}>
+            Submit
+          </Button>
+        </Stack>
+      </FlexBox>
+      <DevTool control={methods.control} />
+    </form>
   );
 };
