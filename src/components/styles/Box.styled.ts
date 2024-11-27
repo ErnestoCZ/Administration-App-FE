@@ -8,17 +8,17 @@ export const OutletWrapper = styled.div`
   background: linear-gradient(to top, #fff, #05d9f5);
 `;
 
-// export const ContentBox = styled(Box)`
-// flex-direction: column;
-// background-color: aliceblue;
-// border-radius: 1vh;
-// margin: 1%;
-// width: 100%;
-// `
-
 type FlexBoxDirection = 'row' | 'column';
 export const Box = styled.div`
   display: block;
+`;
+
+export const ContentBox = styled.div`
+  background-color: ${(props) => props.theme.colors.primary};
+  border-radius: 1vh;
+  padding: 1vh;
+  margin: 0.5vh;
+  width: 100%;
 `;
 
 export const FlexBox = styled.div<{ $direction?: FlexBoxDirection }>`
