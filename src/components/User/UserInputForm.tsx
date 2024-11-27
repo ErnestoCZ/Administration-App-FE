@@ -1,13 +1,15 @@
 import { DevTool } from '@hookform/devtools';
 import { FC } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm, FormProvider } from 'react-hook-form';
 import { UserInputFormData } from '../../models/types';
 import { addUser } from '../../services/usersAPI';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { FlexBox } from '../styles/Box.styled';
+import { StyledSelect } from '../styles/Select.styled';
+import { InputFieldComponent } from '../Form/InputFieldComponent';
 
 export const UserInputForm: FC = () => {
-  const { control, register, handleSubmit } = useForm<UserInputFormData>();
+  const methods = useForm<UserInputFormData>();
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: addUser,
@@ -30,40 +32,39 @@ export const UserInputForm: FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmitHandler)}>
-      <FlexBox $direction="column">
+    <FormProvider {...methods}>
+      <form onSubmit={methods.handleSubmit(onSubmitHandler)}>
         <FlexBox $direction="column">
-          <label htmlFor="firstName">First Name</label>
-          <input
-            type="text"
-            id="firstName"
-            {...register('firstName', { required: true })}
-          />
-          <label htmlFor="lastName">Last Name</label>
-          <input
-            type="text"
-            id="lastName"
-            {...register('lastName', { required: true })}
-          />
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            {...register('email', { required: true })}
-          />
+          <FlexBox $direction="column">
+            <InputFieldComponent
+              name={'First Name'}
+              htmlId={'firstName'}
+              type={'text'}
+            />
+            <InputFieldComponent
+              name={'Last Name'}
+              htmlId={'lastName'}
+              type={'text'}
+            />
+            <InputFieldComponent
+              name={'Email'}
+              htmlId={'email'}
+              type={'email'}
+            />
+          </FlexBox>
+          <FlexBox>
+            <StyledSelect {...methods.register('status', { required: true })}>
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </StyledSelect>
+          </FlexBox>
+          <FlexBox $direction="row">
+            <button type="reset">Reset</button>
+            <button type="submit">Add</button>
+          </FlexBox>
         </FlexBox>
-        <FlexBox>
-          <select {...register('status', { required: true })}>
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
-          </select>
-        </FlexBox>
-        <FlexBox $direction="row">
-          <button>Reset</button>
-          <button>Add</button>
-        </FlexBox>
-      </FlexBox>
-      <DevTool control={control} />
-    </form>
+        <DevTool control={methods.control} />
+      </form>
+    </FormProvider>
   );
 };
