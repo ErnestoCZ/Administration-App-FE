@@ -1,5 +1,6 @@
 import { UserInputForm } from '@/components/User/UserInputForm';
-import { UserListComponent } from '@/components/User/UserListComponent';
+import { List } from '@/components/User/UserListComponent';
+import { UserListItem } from '@/components/User/UserListItem';
 import { useAllUsersData } from '@/hooks/useAllUsersData';
 import { createFileRoute } from '@tanstack/react-router';
 import { FC } from 'react';
@@ -15,17 +16,13 @@ const UserPage: FC = () => {
     <>
       <UserInputForm />
 
-      <UserListComponent>
+      <List>
         {isLoading ? (
           <div>Loading...</div>
         ) : (
-          data?.map((user) => (
-            <div key={user.id}>
-              {user.lastName}, {user.firstName}
-            </div>
-          ))
+          data?.map((user) => <UserListItem key={user.id} user={user} />)
         )}
-      </UserListComponent>
+      </List>
     </>
   );
 };
