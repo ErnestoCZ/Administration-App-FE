@@ -1,16 +1,7 @@
 import { styled } from 'styled-components';
 import { FC } from 'react';
-import { Link } from '@tanstack/react-router';
-
-const StyledMainNavBar = styled.div`
-  display: flex;
-  flex-direction: row;
-  background-color: #05d9f5;
-  border-radius: 3px;
-  margin: 0px;
-  padding: 10px;
-  min-width: 100%;
-`;
+import { Link } from '@/components/Link';
+import { StyledMainNavBar } from '@/components/styles/MainNavBar.styled';
 
 const StyledNavBarBox = styled.div`
   background-color: #05d9f5;
@@ -38,7 +29,7 @@ export const MainNavBar: FC = () => {
           <Link to="/about">about</Link>
         </StyledNavBarBox>
 
-        <StyledNavBarBox>User</StyledNavBarBox>
+        <StyledNavBarBox style={{ marginLeft: 'auto' }}>User</StyledNavBarBox>
       </StyledMainNavBar>
     </>
   );
