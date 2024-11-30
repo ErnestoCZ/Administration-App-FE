@@ -1,13 +1,22 @@
 import { FC, PropsWithChildren } from 'react';
-import { FlexBox } from './styles/Box.styled';
+import styled from 'styled-components';
 
-interface StackProps {
-  direction?: 'row' | 'column';
-}
+export type Direction = 'row' | 'column';
+
+type StackProps = {
+  direction?: Direction;
+};
+
+export const StyledStack = styled.div<{ $direction: Direction }>`
+  display: flex;
+  flex-direction: ${(props) => props.$direction};
+  width: 100%;
+  height: 100%;
+`;
 
 export const Stack: FC<PropsWithChildren<StackProps>> = ({
   direction,
   children,
 }) => {
-  return <FlexBox $direction={direction}>{children}</FlexBox>;
+  return <StyledStack $direction={direction || 'row'}>{children}</StyledStack>;
 };
