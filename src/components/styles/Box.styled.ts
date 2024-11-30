@@ -25,22 +25,3 @@ export const FlexBox = styled.div<{ $direction?: FlexBoxDirection }>`
   display: flex;
   flex-direction: ${(props) => props.$direction || 'row'};
 `;
-
-export const VStack = styled(FlexBox)`
-  flex-direction: column;
-`;
-
-export const StyledContentStackBasis = styled.div<{ $direction?: string }>`
-  background-color: aliceblue;
-  border-radius: 1vh;
-  width: 100%;
-  padding: 1vh;
-  display: ${(props) => props.$direction};
-`;
-
-export const StyledContentStackEntry = styled.div`
-  margin: 0%;
-  background-color: blue;
-  padding: 1vh;
-  border-radius: 1vh;
-`;
