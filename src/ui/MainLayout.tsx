@@ -1,39 +1,30 @@
 import { FC } from 'react';
 import { Outlet } from '@tanstack/react-router';
 import { MainNavBar } from './MainNavBar.tsx';
-import { Logo, StyledHeaderTitle } from '../components/styles/Header.styled.ts';
 import reactLogo from '../assets/react.svg';
-import { User } from '@/models/types.ts';
-import { UserContext } from '@/Context/useUserContext.ts';
 import { Footer } from '@/components/Footer.tsx';
 import { Stack } from '@/components/Stack.tsx';
 import { Header } from '@/components/Header.tsx';
+import { Logo } from '@/components/Logo.tsx';
+import { HeaderTitle } from '@/components/HeaderTitle.tsx';
+import { OutletWrapper } from '@/components/OutletWrapper.tsx';
 
 export const MainLayout: FC = () => {
   return (
     <>
-      <UserContext.Provider
-        value={
-          {
-            id: '',
-            firstName: 'Ernesto',
-            lastName: 'Czechowski',
-            email: '',
-          } as User
-        }
-      >
-        <Stack direction={'column'}>
-          <Header>
-            <Logo src={reactLogo} alt={'logo'} $spinleft={false} />
-            <StyledHeaderTitle>Administration App </StyledHeaderTitle>
-            <Logo src={reactLogo} alt={'logo'} $spinleft={true} />
-          </Header>
+      <Stack direction={'column'}>
+        <Header>
+          <Logo src={reactLogo} alt={'logo'} spinleft={false} />
+          <HeaderTitle title={'Administration App'} />
+          <Logo src={reactLogo} alt={'logo'} spinleft={true} />
+        </Header>
 
-          <MainNavBar />
+        <MainNavBar />
+        <OutletWrapper>
           <Outlet />
-          <Footer></Footer>
-        </Stack>
-      </UserContext.Provider>
+        </OutletWrapper>
+        <Footer></Footer>
+      </Stack>
     </>
   );
 };

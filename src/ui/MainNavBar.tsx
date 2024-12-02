@@ -1,7 +1,6 @@
 import { styled } from 'styled-components';
 import { FC } from 'react';
 import { Link } from '@/components/Link';
-import { useUserContext } from '@/Context/useUserContext';
 
 export const StyledMainNavBar = styled.div`
   display: flex;
@@ -22,8 +21,6 @@ const StyledNavBarBox = styled.div`
 `;
 
 export const MainNavBar: FC = () => {
-  const { firstName, lastName } = useUserContext();
-
   return (
     <>
       <StyledMainNavBar>
@@ -42,9 +39,7 @@ export const MainNavBar: FC = () => {
           <Link to="/about">about</Link>
         </StyledNavBarBox>
 
-        <StyledNavBarBox
-          style={{ marginLeft: 'auto' }}
-        >{`Logged in as ${firstName}, ${lastName}`}</StyledNavBarBox>
+        <StyledNavBarBox style={{ marginLeft: 'auto' }}>User</StyledNavBarBox>
       </StyledMainNavBar>
     </>
   );
