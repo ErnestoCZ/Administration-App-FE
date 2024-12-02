@@ -1,7 +1,12 @@
-import { StyledSelect } from '../styles/Select.styled';
+import { styled } from 'styled-components';
 import { useAllUsersData } from '@/hooks/useAllUsersData';
 import { User } from '@/models/types';
 import { FC } from 'react';
+
+export const StyledSelect = styled.select`
+  padding: 0.5rem;
+  border-radius: 10px;
+`;
 
 interface UserSelectProps {
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;

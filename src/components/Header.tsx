@@ -1,5 +1,5 @@
 import { FC, PropsWithChildren } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 export const StyledHeader = styled.div`
   background: linear-gradient(to Bottom, #fff, #05d9f5);
@@ -9,6 +9,7 @@ export const StyledHeader = styled.div`
   align-items: center;
   height: 10vh;
   margin: 0px;
+  width: 100%;
   font-family: Parkisans;
   font-size: 24px;
   font-weight: 800;

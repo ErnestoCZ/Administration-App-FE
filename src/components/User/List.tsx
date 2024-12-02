@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren } from 'react';
-import { FlexBox } from '../styles/Box.styled';
+import { Stack } from '../Stack';
 
 export const List: FC<PropsWithChildren> = ({ children }) => {
-  return <FlexBox $direction={'column'}>{children}</FlexBox>;
+  return <Stack direction={'column'}>{children}</Stack>;
 };
