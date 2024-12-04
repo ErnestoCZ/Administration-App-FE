@@ -1,9 +1,11 @@
 import { UserInputForm } from '@/components/User/UserInputForm';
-import { List } from '@/components/User/UserListComponent';
 import { UserListItem } from '@/components/User/UserListItem';
 import { useAllUsersData } from '@/hooks/useAllUsersData';
 import { createFileRoute } from '@tanstack/react-router';
-import { FC } from 'react';
+import { FC, useState } from 'react';
+import { Input } from '@/components/Input';
+import { Flex } from '@/components/Flex';
+import List from '@/components/List';
 
 export const Route = createFileRoute('/user')({
   component: () => <UserPage />,
@@ -11,11 +13,24 @@ export const Route = createFileRoute('/user')({
 
 const UserPage: FC = () => {
   const { data, isLoading } = useAllUsersData();
+  const [search, setSearch] = useState('');
+  const [filteredData, setFilteredData] = useState(data);
+
+  const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const searchTerm = event.target.value;
+    setSearch(searchTerm);
+  };
 
   return (
     <>
-      <UserInputForm />
-
+      <Flex>
+        <Input
+          placeholder="Search for User"
+          onChange={onSearchChange}
+          value={search}
+        />
+        <UserInputForm />
+      </Flex>
       <List>
         {isLoading ? (
           <div>Loading...</div>
