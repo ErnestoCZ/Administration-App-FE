@@ -1,13 +1,14 @@
-import React, { FC, PropsWithChildren } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import { styled } from 'styled-components';
 
 const StyledOutletWrapper = styled.div`
-  background-color: linear-gradient(
+  background: linear-gradient(
     to bottom,
-    ${(props) => props.theme.colors.primary}
+    ${(props) => props.theme.colors.primary},
+    #ffffff
   );
-  padding: 0vh;
-  margin: 0%;
+  padding: 1vh;
+
   width: 100%;
   height: 100%;
 `;
