@@ -11,7 +11,5 @@ export const Route = createFileRoute('/billing/$billingId')({
 });
 
 export const BillingByIdComponent = () => {
-  const billing = Route.useLoaderData<Billing>();
-
   return <div></div>;
 };
