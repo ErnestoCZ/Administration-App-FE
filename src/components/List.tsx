@@ -1,6 +1,8 @@
-import { FC, PropsWithChildren } from 'react';
+import { FC, memo, PropsWithChildren } from 'react';
 import { Stack } from '@/components/Stack';
 
-export const List: FC<PropsWithChildren> = ({ children }) => {
+const List: FC<PropsWithChildren> = ({ children }) => {
   return <Stack direction={'column'}>{children}</Stack>;
 };
+
+export default memo(List);
