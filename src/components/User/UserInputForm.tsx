@@ -1,15 +1,28 @@
 import { DevTool } from '@hookform/devtools';
 import { FC } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { UserInputFormData } from '../../models/types';
 import { addUser } from '../../services/usersAPI';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Stack } from '../Stack';
-import { Input } from '../Input';
 import { Button } from '../Button';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { InputController } from '@/Controller/InputController';
+
+const formSchema = z.object({
+  firstName: z.string().min(2),
+  lastName: z.string().min(2).optional(),
+  email: z.string().email(),
+  status: z.enum(['active', 'inactive']).optional(),
+});
+
+type formValues = z.infer<typeof formSchema>;
 
 export const UserInputForm: FC = () => {
-  const { control, handleSubmit } = useForm<UserInputFormData>();
+  const { control, handleSubmit } = useForm<formValues>({
+    resolver: zodResolver(formSchema),
+    errors: {},
+  });
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: addUser,
@@ -25,18 +38,34 @@ export const UserInputForm: FC = () => {
     },
   });
 
-  const onSubmitHandler: SubmitHandler<UserInputFormData> = async (
-    data: UserInputFormData,
+  const onSubmitHandler: SubmitHandler<formValues> = async (
+    data: formValues,
   ) => {
-    mutation.mutate(data);
+    console.log(data);
+    // mutation.mutate(data);
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmitHandler)}>
       <Stack direction={'row'}>
-        <Input type={'text'} placeholder="Name" />
-        <Input type={'email'} placeholder="Email" />
-        <Input type={'password'} placeholder="Password" />
+        <InputController
+          name="firstName"
+          control={control}
+          rules={{}}
+          placeholder="First name"
+        />
+        <InputController
+          name="lastName"
+          control={control}
+          rules={{}}
+          placeholder="Last Name"
+        />
+        <InputController
+          name="email"
+          control={control}
+          rules={{}}
+          placeholder="Email"
+        />
         <Button type="reset" style={'delete'}>
           Clear
         </Button>
