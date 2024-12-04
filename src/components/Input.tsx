@@ -9,10 +9,11 @@ export const StyledInput = styled.input`
 
 interface InputProps {
   id?: string;
-  type?: 'text' | 'password' | 'email';
+  type?: 'text' | 'password' | 'email' | 'date';
   placeholder?: string;
   value?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
 }
 
 export const Input: FC<InputProps> = ({
@@ -21,6 +22,7 @@ export const Input: FC<InputProps> = ({
   placeholder,
   value,
   onChange,
+  onBlur,
 }) => {
   return (
     <StyledInput
@@ -29,6 +31,7 @@ export const Input: FC<InputProps> = ({
       placeholder={placeholder}
       value={value}
       onChange={onChange}
+      onBlur={onBlur}
     />
   );
 };
