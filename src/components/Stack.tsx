@@ -22,6 +22,7 @@ type StackProps = {
   wrap?: Wrap;
   gap?: string;
   flex?: string;
+  height?: string;
 };
 
 export const StyledStack = styled.div<{
@@ -33,6 +34,7 @@ export const StyledStack = styled.div<{
   $alignItems?: AlignItems;
   $alignSelf?: AlignSelf;
   $flex?: flex;
+  $height?: string;
 }>`
   display: flex;
   flex-direction: ${(props) => props.$direction};
@@ -42,14 +44,30 @@ export const StyledStack = styled.div<{
   align-content: ${(props) => props.$alignContent || 'flex-start'};
   align-items: ${(props) => props.$alignItems || 'flex-start'};
   align-self: ${(props) => props.$alignSelf || 'flex-start'};
-  width: 100%;
-  height: 100%;
+  width: ${(props) => props.$height || '100%'};
+  height: ${(props) => props.$height || '100%'};
   flex: ${(props) => props.$flex || '1'};
 `;
 
 export const Stack: FC<PropsWithChildren<StackProps>> = ({
   direction,
   children,
+  height,
+  ...rest
 }) => {
-  return <StyledStack $direction={direction || 'row'}>{children}</StyledStack>;
+  return (
+    <StyledStack
+      $height={height}
+      $direction={direction || 'row'}
+      $alignItems={rest.alignItems}
+      $alignContent={rest.alignContent}
+      $alignSelf={rest.alignSelf}
+      $flex={rest.flex}
+      $justifyContent={rest.justyfyContent}
+      $justifyItems={rest.justifyItems}
+      $justifySelf={rest.justifySelf}
+    >
+      {children}
+    </StyledStack>
+  );
 };
