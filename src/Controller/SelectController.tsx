@@ -1,22 +1,25 @@
 import { UserSelect } from '@/components/Form/UserSelect';
-import { FC } from 'react';
-import { Controller, ControllerProps } from 'react-hook-form';
+import { Controller, Path, Control, FieldValues } from 'react-hook-form';
 
-export const SelectController: FC<ControllerProps> = ({
+interface SelectControllerProps<T extends FieldValues> {
+  name: Path<T>;
+  control: Control<T>;
+  rules?: object;
+}
+
+export const SelectController = <T extends FieldValues>({
   control,
   name,
-  render,
-  ...rest
-}) => {
+  rules,
+}: SelectControllerProps<T>) => {
   return (
     <Controller
       control={control}
       name={name}
-      rules={{ required: true }}
+      rules={rules}
       render={({ field: { onChange, onBlur, value } }) => (
         <UserSelect onBlur={onBlur} onChange={onChange} value={value} />
       )}
-      {...rest}
     />
   );
 };

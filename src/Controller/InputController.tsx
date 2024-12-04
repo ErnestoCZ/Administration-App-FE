@@ -1,24 +1,30 @@
-import { FC } from 'react';
-import { Controller, ControllerProps } from 'react-hook-form';
-//TODO Add React hook form for input field
+import { Input } from '@/components/Input';
+import { Controller, Control, FieldValues, Path } from 'react-hook-form';
 
-export const InputController: FC<ControllerProps> = ({
+interface InputControllerProps<T extends FieldValues> {
+  name: Path<T>;
+
+  control: Control<T>;
+
+  rules?: object;
+
+  placeholder?: string;
+}
+
+export const InputController = <T extends FieldValues>({
   name,
   control,
-  defaultValue,
   rules,
-  render,
-  ...rest
-}) => {
+  placeholder,
+}: InputControllerProps<T>) => {
   return (
     <Controller
       name={name}
       control={control}
-      defaultValue={defaultValue}
       rules={rules}
-      render={() => {
-        <input {...field} />;
-      }}
+      render={({ field: { onBlur, onChange } }) => (
+        <Input onBlur={onBlur} onChange={onChange} placeholder={placeholder} />
+      )}
     />
   );
 };
