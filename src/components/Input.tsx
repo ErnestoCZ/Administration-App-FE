@@ -4,7 +4,15 @@ import { styled } from 'styled-components';
 export const StyledInput = styled.input`
   border-radius: 10px;
   padding: 0.5rem;
-  background-color: #f0f0f0;
+  background-color: #e0e0e0;
+  border: 1px solid;
+  transition: 300ms;
+
+  &:hover {
+    background-color: #f0f0f0;
+    border-color: ${(props) => props.theme.colors.primary};
+    transition: 300ms;
+  }
 `;
 
 interface InputProps {
