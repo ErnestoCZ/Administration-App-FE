@@ -46,34 +46,36 @@ export const UserInputForm: FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmitHandler)}>
+    <>
       <Stack direction={'row'}>
-        <InputController
-          name="firstName"
-          control={control}
-          rules={{}}
-          placeholder="First name"
-        />
-        <InputController
-          name="lastName"
-          control={control}
-          rules={{}}
-          placeholder="Last Name"
-        />
-        <InputController
-          name="email"
-          control={control}
-          rules={{}}
-          placeholder="Email"
-        />
-        <Button type="reset" style={'delete'}>
-          Clear
-        </Button>
-        <Button type="submit" style="secondary">
-          Add
-        </Button>
+        <form onSubmit={handleSubmit(onSubmitHandler)}>
+          <InputController
+            name="firstName"
+            control={control}
+            rules={{}}
+            placeholder="First name"
+          />
+          <InputController
+            name="lastName"
+            control={control}
+            rules={{}}
+            placeholder="Last Name"
+          />
+          <InputController
+            name="email"
+            control={control}
+            rules={{}}
+            placeholder="Email"
+          />
+          <Button type="reset" style={'delete'}>
+            Clear
+          </Button>
+          <Button type="submit" style="secondary">
+            Add
+          </Button>
+        </form>
       </Stack>
       <DevTool control={control} />
-    </form>
+    </>
   );
 };
