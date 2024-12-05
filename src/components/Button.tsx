@@ -7,19 +7,38 @@ export const StyledButton = styled.button<{ $buttonStyle?: ButtonStyleProps }>`
   background-color: ${(props) => {
     switch (props.$buttonStyle) {
       case 'primary':
-        return '#05d9f5';
+        return props.theme.colors.Button.primary.background;
       case 'secondary':
-        return '#05d485';
+        return props.theme.colors.Button.secondary.background;
       case 'edit':
-        return '#f5d905';
+        return props.theme.colors.Button.edit.background;
       case 'delete':
-        return '#f50505';
+        return props.theme.colors.delete.background;
     }
     return props.theme.colors.Button.primary.background;
   }};
+
+  color: ${(props) => {
+    switch (props.$buttonStyle) {
+      case 'primary':
+        return props.theme.colors.Button.primary.color;
+      case 'secondary':
+        return props.theme.colors.Button.secondary.color;
+      case 'edit':
+        return props.theme.colors.Button.edit.color;
+      case 'delete':
+        return props.theme.colors.delete.color;
+    }
+    return props.theme.colors.Button.primary.color;
+  }};
+
   height: 35px;
   width: 80px;
   border-radius: 5px;
+  font-family: Parkinsans 300;
+  font-size: 14px;
+  justify-content: center;
+  align-content: center;
 `;
 
 interface ButtonProps {
@@ -32,7 +51,11 @@ interface ButtonProps {
 
 export const Button: FC<ButtonProps> = ({ type, children, style, onClick }) => {
   return (
-    <StyledButton type={type} $buttonStyle={style} onClick={onClick}>
+    <StyledButton
+      type={type}
+      $buttonStyle={style || 'primary'}
+      onClick={onClick}
+    >
       {children}
     </StyledButton>
   );
