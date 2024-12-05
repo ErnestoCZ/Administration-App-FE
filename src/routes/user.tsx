@@ -6,6 +6,8 @@ import { FC, useState } from 'react';
 import { Input } from '@/components/Input';
 import { Flex } from '@/components/Flex';
 import List from '@/components/List';
+import { Loader } from '@/components/Loader';
+import { User } from '@/models/types';
 
 export const Route = createFileRoute('/user')({
   component: () => <UserPage />,
@@ -13,11 +15,16 @@ export const Route = createFileRoute('/user')({
 
 const UserPage: FC = () => {
   const { data, isLoading } = useAllUsersData();
-  const [search, setSearch] = useState('');
-  const [filteredData, setFilteredData] = useState(data);
+  const [search, setSearch] = useState<string | undefined>();
+  const [filteredData, setFilteredData] = useState<User[] | undefined>(data);
 
   const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const searchTerm = event.target.value;
+    setFilteredData(
+      filteredData?.filter((user) =>
+        user.firstName.toLowerCase().includes(searchTerm.toLowerCase()),
+      ),
+    );
     setSearch(searchTerm);
   };
 
@@ -33,9 +40,11 @@ const UserPage: FC = () => {
       </Flex>
       <List>
         {isLoading ? (
-          <div>Loading...</div>
+          <Loader />
         ) : (
-          data?.map((user) => <UserListItem key={user.id} user={user} />)
+          filteredData?.map((user) => (
+            <UserListItem key={user.id} user={user} />
+          ))
         )}
       </List>
     </>
