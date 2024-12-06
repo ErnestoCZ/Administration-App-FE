@@ -1,5 +1,4 @@
-import { UserInputFormData } from '../models/types';
-import { User, UserList } from '../models/types';
+import { addUserFormValues, User, UserList } from '../models/types';
 import { baseAddress } from './apiConstants';
 
 export const fetchAllUsersKey = 'users';
@@ -13,14 +12,12 @@ export async function getUsers(): Promise<User[]> {
   if (!res.ok) {
     throw new Error('Error fetching users');
   }
-  console.log(res);
   const userList: User[] = await UserList.parse(await res.json());
 
-  console.log(userList);
   return userList;
 }
 
-export async function addUser(user: UserInputFormData): Promise<User> {
+export async function addUser(user: addUserFormValues): Promise<User> {
   const res = await fetch(`${baseAddress}/users`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
