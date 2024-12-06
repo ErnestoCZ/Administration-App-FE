@@ -10,7 +10,11 @@ import { StyledComponentTheme } from './themes/StyledComponentsTheme.ts';
 import { Provider } from './components/ui/provider.tsx';
 scan({ enabled: true, log: true });
 
-const router = createRouter({ routeTree });
+const router = createRouter({
+  routeTree,
+  defaultPreload: 'intent',
+  defaultPreloadDelay: 100,
+});
 
 declare module '@tanstack/react-router' {
   interface Register {
