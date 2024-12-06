@@ -1,4 +1,4 @@
-import { UserSelect } from '@/components/Form/UserSelect';
+import { UserSelect } from '@/components/UserSelect';
 import { Controller, Path, Control, FieldValues } from 'react-hook-form';
 
 interface SelectControllerProps<T extends FieldValues> {
