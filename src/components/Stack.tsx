@@ -2,7 +2,12 @@ import { FC, PropsWithChildren } from 'react';
 import styled from 'styled-components';
 
 type Direction = 'row' | 'column';
-type JustifyContent = 'center' | 'flex-start' | 'flex-end' | 'space-between';
+type JustifyContent =
+  | 'center'
+  | 'flex-start'
+  | 'flex-end'
+  | 'space-between'
+  | 'space-around';
 type JustifyItems = 'center' | 'flex-start' | 'flex-end';
 type JustifySelf = 'center' | 'flex-start' | 'flex-end';
 type AlignContent = 'center' | 'flex-start' | 'flex-end';
