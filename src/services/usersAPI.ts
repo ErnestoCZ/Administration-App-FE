@@ -1,7 +1,9 @@
-import { addUserFormValues, User, UserList } from '../models/types';
+import { addUserFormValues, User } from '../models/types';
 import { baseAddress } from './apiConstants';
+import { z } from 'zod';
 
-export const fetchAllUsersKey = 'users';
+export const UserList = z.array(User);
+export type UserList = z.infer<typeof UserList>;
 
 export async function getUsers(): Promise<User[]> {
   const res = await fetch(`${baseAddress}/users`, {
