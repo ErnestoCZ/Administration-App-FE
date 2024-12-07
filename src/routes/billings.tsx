@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { FC, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { Billing, fakeBillings } from '../fakeData';
 import { Stack } from '@/components/Stack';
 import { useForm } from 'react-hook-form';
@@ -9,6 +9,7 @@ import { Input } from '@/components/Input';
 import { Loader } from '@/components/Loader';
 import List from '@/components/List';
 import { ListItem } from '@/components/ListItem';
+
 export const Route = createFileRoute('/billings')({
   component: () => <BillingsPage />,
   loader: (): Billing[] => {
@@ -17,40 +18,47 @@ export const Route = createFileRoute('/billings')({
 });
 
 export const BillingsPage: FC = () => {
+  const { control } = useForm();
   const { data, isLoading } = useAllBillingsData();
-  const [search, setSearch] = useState<string | undefined>();
-  const [filteredData, setFilteredData] = useState<Billing[] | undefined>(data);
+  const [searchString, setSearchString] = useState('');
 
-  const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const searchTerm = event.target.value;
-    setFilteredData(
-      data?.filter((billing) =>
-        billing.month.toLowerCase().includes(searchTerm.toLowerCase()),
-      ),
-    );
-    setSearch(searchTerm);
+  const searchBillingFunction = (billing: Billing): boolean => {
+    if (billing.month.toLowerCase().includes(searchString)) {
+      return true;
+    }
+    return false;
   };
 
-  const { control } = useForm();
+  const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    setSearchString(event.target.value.toLowerCase());
+  };
+
+  const renderBilling = (billing: Billing): React.ReactNode => {
+    return (
+      <div>
+        {billing.id} | {billing.month}
+      </div>
+    );
+  };
+
   return (
     <>
       <Stack direction={'column'}>
-        <Input
-          placeholder="Search for Billings"
-          value={search}
-          onChange={onSearchChange}
-        />
+        <Input placeholder="Search for Billings" onChange={onSearchChange} />
         <List>
           {isLoading ? (
             <Loader />
           ) : (
-            filteredData?.map((billing) => (
-              <ListItem<Billing>
-                key={billing.id}
-                item={billing}
-                renderItem={(billing) => <div>{billing.month}</div>}
-              />
-            ))
+            data
+              ?.filter((billing) => searchBillingFunction(billing))
+              .map((billing) => (
+                <ListItem<Billing>
+                  key={billing.id}
+                  item={billing}
+                  renderItem={renderBilling}
+                />
+              ))
           )}
         </List>
       </Stack>
