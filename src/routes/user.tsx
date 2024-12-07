@@ -15,36 +15,35 @@ export const Route = createFileRoute('/user')({
 
 const UserPage: FC = () => {
   const { data, isLoading } = useAllUsersData();
-  const [search, setSearch] = useState<string | undefined>();
-  const [filteredData, setFilteredData] = useState<User[] | undefined>(data);
+  const [searchString, setSearchString] = useState<string>('');
 
-  const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const searchTerm = event.target.value;
-    setFilteredData(
-      filteredData?.filter((user) =>
-        user.firstName.toLowerCase().includes(searchTerm.toLowerCase()),
-      ),
-    );
-    setSearch(searchTerm);
+  const searchUserFunction = (user: User): boolean => {
+    if (
+      user.firstName.toLowerCase().includes(searchString) ||
+      user.lastName.toLowerCase().includes(searchString)
+    ) {
+      return true;
+    }
+    return false;
   };
 
+  const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    setSearchString(e.target.value.toLowerCase());
+  };
   return (
     <>
       <Flex>
-        <Input
-          placeholder="Search for User"
-          onChange={onSearchChange}
-          value={search}
-        />
+        <Input placeholder="Search for User" onChange={onSearchChange} />
         <UserInputForm />
       </Flex>
       <List>
         {isLoading ? (
           <Loader />
         ) : (
-          filteredData?.map((user) => (
-            <UserListItem key={user.id} user={user} />
-          ))
+          data
+            ?.filter((user) => searchUserFunction(user as User))
+            .map((user) => <UserListItem key={user.id} user={user} />)
         )}
       </List>
     </>
