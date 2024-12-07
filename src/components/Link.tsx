@@ -5,6 +5,9 @@ import { FC, PropsWithChildren } from 'react';
 export const StyledLink = styled(TanStackLink)`
   color: #000;
   text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 
   &:hover {
     color: white;
