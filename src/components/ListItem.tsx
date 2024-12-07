@@ -8,6 +8,10 @@ const StyledListItem = styled.div`
   padding: 0.5rem;
   opacity: 0.8;
   margin-top: 1vh;
+  box-shadow: 2px 2px rgb(0 0 0 / 50%);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 interface ListItemProps<T> {
