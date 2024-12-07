@@ -10,7 +10,12 @@ interface FlexProps {
     | 'space-between'
     | 'space-around'
     | 'space-evenly';
-  justifyItems?: 'center' | 'flex-start' | 'flex-end';
+  justifyItems?:
+    | 'center'
+    | 'flex-start'
+    | 'flex-end'
+    | 'space-around'
+    | 'space-between';
   justifySelf?: 'center' | 'flex-start' | 'flex-end';
   alignContent?: 'center' | 'flex-start' | 'flex-end';
   alignItems?: 'center' | 'flex-start' | 'flex-end';
