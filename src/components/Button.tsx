@@ -32,8 +32,10 @@ export const StyledButton = styled.button<{ $buttonStyle?: ButtonStyleProps }>`
     return props.theme.colors.Button.primary.color;
   }};
 
-  height: 35px;
+  height: auto;
   width: 80px;
+  margin: 0px;
+  padding: 1vh;
   border-radius: 5px;
   font-family: Parkinsans 300;
   font-size: 14px;
