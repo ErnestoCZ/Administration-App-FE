@@ -4,7 +4,6 @@ import { Box, Stack } from '@chakra-ui/react';
 import { Flex } from '@/components/Flex';
 import { Label } from '@/components/Label';
 import { Input } from '@/components/Input';
-import List from '@/components/List';
 import { Button } from '@/components/Button';
 import { UserSelect } from '@/components/UserSelect';
 export const Route = createFileRoute('/billing/$billingId')({
