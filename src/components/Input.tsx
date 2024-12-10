@@ -1,6 +1,8 @@
 import { FC } from 'react';
 import { styled } from 'styled-components';
 
+type width = string;
+
 export const StyledInput = styled.input`
   border-radius: 10px;
   padding: 0.5rem;
@@ -9,6 +11,7 @@ export const StyledInput = styled.input`
   transition: 300ms;
   height: auto;
   max-height: 50px;
+  width: ${(props) => props.width};
 
   &:hover {
     background-color: #f0f0f0;
@@ -24,6 +27,8 @@ interface InputProps {
   value?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  defaultValue?: string;
+  width?: width;
 }
 
 export const Input: FC<InputProps> = ({
@@ -33,6 +38,8 @@ export const Input: FC<InputProps> = ({
   value,
   onChange,
   onBlur,
+  defaultValue,
+  width,
 }) => {
   return (
     <StyledInput
@@ -42,6 +49,8 @@ export const Input: FC<InputProps> = ({
       value={value}
       onChange={onChange}
       onBlur={onBlur}
+      defaultValue={defaultValue}
+      width={width}
     />
   );
 };
