@@ -3,13 +3,13 @@ import { useAllUsersData } from '@/hooks/useAllUsersData';
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { FC, useState } from 'react';
 import { Input } from '@/components/Input';
-import { Flex } from '@/components/Flex';
 import List from '@/components/List';
 import { Loader } from '@/components/Loader';
 import { User } from '@/models/types';
 import { ListItem } from '@/components/ListItem';
 import { Box } from '@chakra-ui/react';
 import { IoMdArrowForward } from 'react-icons/io';
+import { Flex } from '@/components/Flex';
 export const Route = createFileRoute('/user')({
   component: () => <UserPage />,
 });
