@@ -32,8 +32,8 @@ export const StyledButton = styled.button<{ $buttonStyle?: ButtonStyleProps }>`
     return props.theme.colors.Button.primary.color;
   }};
 
-  height: auto;
-  width: 80px;
+  height: 45px;
+  width: auto;
   margin: 0px;
   padding: 1vh;
   border-radius: 5px;
