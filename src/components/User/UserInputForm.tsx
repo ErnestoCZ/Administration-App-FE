@@ -1,18 +1,18 @@
 import { DevTool } from '@hookform/devtools';
 import { FC } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Stack } from '../Stack';
 import { Button } from '../Button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { InputController } from '@/Controller/InputController';
 import { useAddUserMutation } from '@/hooks/useAddUserMutation';
 import { addUserFormSchema, addUserFormValues } from '@/models/types';
+import { Stack } from '@chakra-ui/react';
 
 export const UserInputForm: FC = () => {
   const {
     control,
     handleSubmit,
-    formState: { isSubmitting, errors },
+    formState: { isSubmitting },
   } = useForm<addUserFormValues>({
     resolver: zodResolver(addUserFormSchema),
     errors: {},
