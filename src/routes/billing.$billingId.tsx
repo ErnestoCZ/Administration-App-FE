@@ -1,11 +1,23 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { Billing, fakeBillings } from '../fakeData';
-import { Box, Stack } from '@chakra-ui/react';
+import { Box, Separator, Stack } from '@chakra-ui/react';
 import { Flex } from '@/components/Flex';
 import { Label } from '@/components/Label';
 import { Input } from '@/components/Input';
 import { Button } from '@/components/Button';
-import { UserSelect } from '@/components/UserSelect';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { User } from '@/models/types';
+import React, { useState } from 'react';
+import { DevTool } from '@hookform/devtools';
+import { SelectController } from '@/Controller/SelectController';
+import List from '@/components/List';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useAllUsersData } from '@/hooks/useAllUsersData';
+import { ListItem } from '@/components/ListItem';
+import { IoCloseSharp } from 'react-icons/io5';
+import { InputController } from '@/Controller/InputController';
+
 export const Route = createFileRoute('/billing/$billingId')({
   loader: ({ params }): Billing | undefined => {
     const foundBilling = fakeBillings.find(
@@ -17,8 +29,48 @@ export const Route = createFileRoute('/billing/$billingId')({
   component: () => <BillingByIdComponent />,
 });
 
+const addUserSchema = z.object({
+  usersUUID: z.string().uuid(),
+});
+type addUserFormValues = z.infer<typeof addUserSchema>;
+
 export const BillingByIdComponent = () => {
   const data = Route.useLoaderData();
+  const users = useAllUsersData();
+  const { control, handleSubmit } = useForm<addUserFormValues>({
+    resolver: zodResolver(addUserSchema),
+  });
+  const [userList, setUserList] = useState<User[]>([]);
+
+  const onSubmitHandler: SubmitHandler<addUserFormValues> = async (
+    data: addUserFormValues,
+  ) => {
+    const user = users.data?.find((user) => user.id === data.usersUUID);
+    if (user && !userList.find((u) => u.id === user.id)) {
+      setUserList([...userList, user]);
+    }
+  };
+
+  const RenderUserFunction = (user: User): React.ReactNode => {
+    const { control } = useForm({});
+    return (
+      <>
+        <Flex justifyContent="space-between">
+          {user.firstName} {user.lastName}
+          <IoCloseSharp
+            onClick={(e) => {
+              e.preventDefault();
+              setUserList(userList.filter((e) => e.id != user.id));
+            }}
+          />
+          <InputController control={control} name="Constant1" />
+          <InputController control={control} name="Constant2" />
+          <InputController control={control} name="Constant3" />
+        </Flex>
+        <DevTool control={control} />
+      </>
+    );
+  };
 
   return (
     <>
@@ -26,6 +78,7 @@ export const BillingByIdComponent = () => {
       <Stack direction={'row'}>
         <Stack direction={'column'}>
           <Label colorScheme="secondary">Details</Label>
+          <Separator />
           <Flex direction="column">
             <Box>{data?.month}</Box>
             <Box display={'flex'} flexDirection={'column'}>
@@ -45,13 +98,24 @@ export const BillingByIdComponent = () => {
             </Box>
           </Flex>
         </Stack>
-        <Stack direction={'column'}>
-          <Flex direction={'column'}>
-            <Button>Add User to Billing</Button>
-            <UserSelect />
-          </Flex>
+        <Stack direction={'column'} width={'100%'}>
+          <form onSubmit={handleSubmit(onSubmitHandler)}>
+            <SelectController control={control} name="usersUUID" rules={{}} />
+            <Button type="submit">Add User to Billing</Button>
+          </form>
+          <Separator />
+          <List>
+            {userList.map((user) => (
+              <ListItem<User>
+                key={user.id}
+                item={user}
+                renderItem={RenderUserFunction}
+              />
+            ))}
+          </List>
         </Stack>
       </Stack>
+      <DevTool control={control} />
     </>
   );
 };
