@@ -12,6 +12,7 @@ interface UserSelectProps {
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   onBlur?: (event: React.FocusEvent<HTMLSelectElement>) => void;
   value?: string;
+  defaultValue?: string;
 }
 
 export const UserSelect: FC<UserSelectProps> = ({
@@ -28,12 +29,19 @@ export const UserSelect: FC<UserSelectProps> = ({
   const fetchedUsers: User[] = data as User[];
 
   return (
-    <StyledSelect onChange={onChange} onBlur={onBlur} value={value}>
-      {fetchedUsers?.map((user) => (
-        <option key={user.id} value={user.id}>
-          {user.lastName}, {user.firstName}
-        </option>
-      ))}
-    </StyledSelect>
+    <>
+      <StyledSelect
+        onChange={onChange}
+        onBlur={onBlur}
+        defaultValue={''}
+        value={value}
+      >
+        {fetchedUsers?.map((user) => (
+          <option key={user.id} value={user.id}>
+            {user.lastName}, {user.firstName}
+          </option>
+        ))}
+      </StyledSelect>
+    </>
   );
 };
