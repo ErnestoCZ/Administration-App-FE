@@ -1,6 +1,7 @@
-import { LinkProps, Link as TanStackLink } from '@tanstack/react-router';
+import { Link as TanStackLink } from '@tanstack/react-router';
 import { styled } from 'styled-components';
 import { FC, PropsWithChildren } from 'react';
+import { LinkProps } from '@chakra-ui/react';
 
 export const StyledLink = styled(TanStackLink)`
   color: #000;
@@ -15,6 +16,14 @@ export const StyledLink = styled(TanStackLink)`
   }
 `;
 
-export const Link: FC<PropsWithChildren<LinkProps>> = ({ to, children }) => {
-  return <StyledLink to={to}>{children}</StyledLink>;
+interface CustomLinkProps extends LinkProps {
+  to: string;
+  params?: Record<string, string>;
+}
+
+export const Link: FC<PropsWithChildren<CustomLinkProps>> = ({
+  children,
+  ...rest
+}) => {
+  return <StyledLink {...rest}>{children}</StyledLink>;
 };

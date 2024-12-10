@@ -9,6 +9,8 @@ import { Input } from '@/components/Input';
 import { Loader } from '@/components/Loader';
 import List from '@/components/List';
 import { ListItem } from '@/components/ListItem';
+import { Box } from '@chakra-ui/react';
+import { Link } from '@/components/Link';
 
 export const Route = createFileRoute('/billings')({
   component: () => <BillingsPage />,
@@ -36,9 +38,16 @@ export const BillingsPage: FC = () => {
 
   const renderBilling = (billing: Billing): React.ReactNode => {
     return (
-      <div>
-        {billing.id} | {billing.month}
-      </div>
+      <>
+        <Link
+          key={billing.id}
+          to={`/billing/$billingId`}
+          params={{ billingId: billing.id }}
+        >
+          {billing.month}
+        </Link>
+        <Box>{`From ${billing.dateFrom} to ${billing.dateTo}`}</Box>
+      </>
     );
   };
 
