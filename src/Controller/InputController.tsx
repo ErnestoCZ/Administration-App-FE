@@ -23,7 +23,12 @@ export const InputController = <T extends FieldValues>({
       control={control}
       rules={rules}
       render={({ field: { onBlur, onChange } }) => (
-        <Input onBlur={onBlur} onChange={onChange} placeholder={placeholder} />
+        <Input
+          onBlur={onBlur}
+          onChange={onChange}
+          placeholder={placeholder}
+          defaultValue=""
+        />
       )}
     />
   );
