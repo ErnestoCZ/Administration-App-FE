@@ -36,6 +36,10 @@ export const MainNavBar: FC = () => {
         </StyledNavBarBox>
 
         <StyledNavBarBox>
+          <Link to="/constants">Constants</Link>
+        </StyledNavBarBox>
+
+        <StyledNavBarBox>
           <Link to="/about">about</Link>
         </StyledNavBarBox>
 
