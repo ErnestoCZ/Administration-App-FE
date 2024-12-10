@@ -7,6 +7,8 @@ export const StyledInput = styled.input`
   background-color: #e0e0e0;
   border: 1px solid;
   transition: 300ms;
+  height: auto;
+  max-height: 50px;
 
   &:hover {
     background-color: #f0f0f0;
