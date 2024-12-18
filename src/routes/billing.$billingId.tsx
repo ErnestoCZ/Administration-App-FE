@@ -1,5 +1,4 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { Billing, fakeBillings } from '../fakeData';
 import { Box, Separator, Stack } from '@chakra-ui/react';
 import { Flex } from '@/components/Flex';
 import { Label } from '@/components/Label';
@@ -17,15 +16,9 @@ import { useAllUsersData } from '@/hooks/useAllUsersData';
 import { ListItem } from '@/components/ListItem';
 import { IoCloseSharp } from 'react-icons/io5';
 import { InputController } from '@/Controller/InputController';
+import { useAllBillingsData } from '@/hooks/useAllBillingsData';
 
 export const Route = createFileRoute('/billing/$billingId')({
-  loader: ({ params }): Billing | undefined => {
-    const foundBilling = fakeBillings.find(
-      (billing) => billing.id === params.billingId,
-    );
-
-    return foundBilling;
-  },
   component: () => <BillingByIdComponent />,
 });
 
@@ -35,7 +28,7 @@ const addUserSchema = z.object({
 type addUserFormValues = z.infer<typeof addUserSchema>;
 
 export const BillingByIdComponent = () => {
-  const data = Route.useLoaderData();
+  const { data, isLoading } = useAllBillingsData();
   const users = useAllUsersData();
   const { control, handleSubmit } = useForm<addUserFormValues>({
     resolver: zodResolver(addUserSchema),
@@ -74,7 +67,7 @@ export const BillingByIdComponent = () => {
 
   return (
     <>
-      <Label>{data?.month}</Label>
+      <Label>{data?.name}</Label>
       <Stack direction={'row'}>
         <Stack direction={'column'}>
           <Label colorScheme="secondary">Details</Label>
