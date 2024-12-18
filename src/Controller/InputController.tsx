@@ -9,6 +9,9 @@ interface InputControllerProps<T extends FieldValues> {
   rules?: object;
 
   placeholder?: string;
+
+  type?: string;
+  defaulValue?: string;
 }
 
 export const InputController = <T extends FieldValues>({
@@ -16,6 +19,8 @@ export const InputController = <T extends FieldValues>({
   control,
   rules,
   placeholder,
+  type,
+  defaulValue,
 }: InputControllerProps<T>) => {
   return (
     <Controller
@@ -27,7 +32,8 @@ export const InputController = <T extends FieldValues>({
           onBlur={onBlur}
           onChange={onChange}
           placeholder={placeholder}
-          defaultValue=""
+          defaultValue={defaulValue}
+          type={type}
         />
       )}
     />
