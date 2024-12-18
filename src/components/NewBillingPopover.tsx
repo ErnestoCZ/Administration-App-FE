@@ -1,30 +1,51 @@
 import { Popover, Portal, Stack } from '@chakra-ui/react';
-import { FC } from 'react';
 import { Button } from './Button';
 import { useForm } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
 import { InputController } from '@/Controller/InputController';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Billing } from '@/fakeData';
+import { FC } from 'react';
+import { useAddBillingMutation } from '@/hooks/useAddBillingMutation';
 
 const FormDataSchema = z.object({
-  Month: z.string(),
-  dateFrom: z.string(),
-  dateTo: z.string().optional(),
+  name: z.string(),
+  dateFrom: z.string().date(),
+  dateTo: z.string().date(),
 });
 
 type FormData = z.infer<typeof FormDataSchema>;
 
-export const NewBillingPopover: FC = () => {
-  const { control, handleSubmit, formState, reset } = useForm<FormData>({
+interface NewBillingPopoverProps {
+  billings?: Billing[];
+}
+
+export const NewBillingPopover: FC<NewBillingPopoverProps> = ({ billings }) => {
+  const addBillingMutation = useAddBillingMutation();
+  const { control, handleSubmit } = useForm<FormData>({
     resolver: zodResolver(FormDataSchema),
   });
 
   const onSubmitHandler = async (data: FormData) => {
     console.log(data);
 
-    reset({ dateFrom: '', dateTo: '', Month: '' });
+    //TODO : Convert string to Date
+    data.dateFrom = new Date(Date.parse(data.dateFrom)).toISOString();
+    data.dateTo = new Date(Date.parse(data.dateTo)).toISOString();
+
+    addBillingMutation.mutate({
+      name: data.name,
+      dateFrom: new Date(Date.parse(data.dateFrom)),
+      dateTo: new Date(Date.parse(data.dateTo)),
+    });
   };
+
+  const findLastDate = (): string => {
+    console.log(billings);
+    return '2021-01-02';
+  };
+
   return (
     <>
       <Popover.Root>
@@ -38,8 +59,8 @@ export const NewBillingPopover: FC = () => {
                 <Stack direction={'column'}>
                   <InputController
                     control={control}
-                    name="Month"
-                    placeholder="Month"
+                    name="name"
+                    placeholder="name"
                     key={'month'}
                     type="text"
                   />
@@ -49,6 +70,7 @@ export const NewBillingPopover: FC = () => {
                     placeholder="Date From"
                     key={'dateFrom'}
                     type="date"
+                    defaulValue={findLastDate()}
                   />
                   <InputController
                     control={control}
@@ -61,9 +83,9 @@ export const NewBillingPopover: FC = () => {
                 </Stack>
               </form>
             </Popover.Content>
+            <DevTool control={control} />
           </Popover.Positioner>
         </Portal>
-        <DevTool control={control} />
       </Popover.Root>
     </>
   );
