@@ -1,12 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import { fetchAllBillingsKey } from './../services/billingsAPI';
-import { fakeBillings } from '@/fakeData';
+import { getAllBillings } from '@/services/billingsAPI';
 
 export const useAllBillingsData = () => {
   return useQuery({
-    queryKey: [fetchAllBillingsKey],
-    queryFn: () => {
-      return fakeBillings;
-    },
+    queryKey: ['billings'],
+    queryFn: getAllBillings,
   });
 };
