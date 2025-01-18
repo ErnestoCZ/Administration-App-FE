@@ -4,16 +4,25 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "concurrently \"vite\" \"graphql-codegen --config codegen.json --watch\"",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "jest",
+    "compile": "graphql-codegen",
+    "watch": "graphql-codegen -w",
+    "codegen": "graphql-codegen --config codegen.json"
   },
   "dependencies": {
+    "@apollo/client": "^3.12.6",
+    "@chakra-ui/icon": "^3.2.0",
     "@chakra-ui/react": "^3.2.3",
     "@emotion/react": "^11.13.5",
     "@hookform/devtools": "^4.3.1",
     "@hookform/resolvers": "^3.9.1",
+    "@mui/base": "^5.0.0-beta.67",
+    "@nestjs/mapped-types": "*",
+    "@parcel/watcher": "^2.5.0",
     "@tanstack/react-query": "^5.60.5",
     "@tanstack/react-query-devtools": "^5.60.5",
     "@tanstack/react-router": "^1.57.18",
@@ -30,19 +39,44 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
+    "@graphql-codegen/cli": "5.0.3",
+    "@graphql-codegen/client-preset": "4.5.1",
+    "@graphql-typed-document-node/core": "^3.2.0",
     "@tanstack/eslint-plugin-query": "^5.60.1",
     "@tanstack/router-devtools": "^1.57.18",
     "@tanstack/router-plugin": "^1.57.15",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/react": "^16.1.0",
+    "@types/jest": "^29.5.14",
+    "@types/react": "^18.3.14",
+    "@types/react-dom": "^18.3.2",
     "@vitejs/plugin-react-swc": "^3.5.0",
+    "concurrently": "^9.1.2",
     "eslint": "^9.9.0",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",
     "globals": "^15.9.0",
-    "typescript": "^5.5.3",
+    "graphql": "^16.10.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.7.3",
     "typescript-eslint": "^8.0.1",
     "vite": "^5.4.1",
     "vite-tsconfig-paths": "^5.1.3"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "jsdom",
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
   }
 }
