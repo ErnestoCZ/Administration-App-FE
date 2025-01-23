@@ -4,9 +4,9 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Button } from '../Button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { InputController } from '@/Controller/InputController';
-import { useAddUserMutation } from '@/hooks/useAddUserMutation';
 import { addUserFormSchema, addUserFormValues } from '@/models/types';
 import { Stack } from '@chakra-ui/react';
+import { useNewUser } from '@/GraphQL/user.queries';
 
 export const UserInputForm: FC = () => {
   const {
@@ -18,15 +18,21 @@ export const UserInputForm: FC = () => {
     errors: {},
   });
 
-  const addUserMutation = useAddUserMutation();
+  const [createNewUser] = useNewUser();
 
   const onSubmitHandler: SubmitHandler<addUserFormValues> = async (
     data: addUserFormValues,
   ) => {
-    console.log(data);
-    await addUserMutation.mutate(data);
-
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    const mutationResponse = await createNewUser({
+      variables: {
+        userData: {
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+        },
+      },
+    });
+    console.log(mutationResponse.errors);
   };
 
   return (
@@ -54,6 +60,7 @@ export const UserInputForm: FC = () => {
           <Button type="reset" style={'delete'}>
             Clear
           </Button>
+
           <Button type="submit" disabled={isSubmitting} style="secondary">
             {isSubmitting ? 'Adding...' : 'Add User'}
           </Button>
