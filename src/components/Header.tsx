@@ -2,7 +2,7 @@ import { FC, PropsWithChildren } from 'react';
 import { styled } from 'styled-components';
 
 export const StyledHeader = styled.div`
-  background: linear-gradient(to Bottom, #fff, #05d9f5);
+  background: none;
   display: flex;
   flex-direction: row;
   justify-content: center;
