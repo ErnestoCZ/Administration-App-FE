@@ -5,7 +5,7 @@ import { Link } from '@/components/Link';
 export const StyledMainNavBar = styled.div`
   display: flex;
   flex-direction: row;
-  background-color: #05d9f5;
+  background: none;
   border-radius: 0px;
   margin: 0px;
   padding: 10px;
@@ -13,7 +13,7 @@ export const StyledMainNavBar = styled.div`
 `;
 //TODO : Add a styled component for the NavBarBox
 const StyledNavBarBox = styled.div`
-  background-color: #05d9f5;
+  opacity: 100%;
   padding: 10px;
   margin-left: 5px;
   border-radius: 5px;
@@ -25,22 +25,11 @@ export const MainNavBar: FC = () => {
     <>
       <StyledMainNavBar>
         <StyledNavBarBox>
-          <Link to="/"></Link>
-        </StyledNavBarBox>
-        <StyledNavBarBox>
-          <Link to="/user">User</Link>
+          <Link to="/control">Control</Link>
         </StyledNavBarBox>
 
         <StyledNavBarBox>
           <Link to="/billings">Billings</Link>
-        </StyledNavBarBox>
-
-        <StyledNavBarBox>
-          <Link to="/constants">Constants</Link>
-        </StyledNavBarBox>
-
-        <StyledNavBarBox>
-          <Link to="/about">about</Link>
         </StyledNavBarBox>
 
         <StyledNavBarBox style={{ marginLeft: 'auto' }}>User</StyledNavBarBox>
