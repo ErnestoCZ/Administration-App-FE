@@ -13,30 +13,18 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as UserImport } from './routes/user'
-import { Route as ConstantsImport } from './routes/constants'
+import { Route as ControlImport } from './routes/control'
 import { Route as BillingsImport } from './routes/billings'
 import { Route as BillingBillingIdImport } from './routes/billing.$billingId'
 
 // Create Virtual Routes
 
-const AboutLazyImport = createFileRoute('/about')()
 const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
 
-const AboutLazyRoute = AboutLazyImport.update({
-  path: '/about',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/about.lazy').then((d) => d.Route))
-
-const UserRoute = UserImport.update({
-  path: '/user',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ConstantsRoute = ConstantsImport.update({
-  path: '/constants',
+const ControlRoute = ControlImport.update({
+  path: '/control',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -73,25 +61,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BillingsImport
       parentRoute: typeof rootRoute
     }
-    '/constants': {
-      id: '/constants'
-      path: '/constants'
-      fullPath: '/constants'
-      preLoaderRoute: typeof ConstantsImport
-      parentRoute: typeof rootRoute
-    }
-    '/user': {
-      id: '/user'
-      path: '/user'
-      fullPath: '/user'
-      preLoaderRoute: typeof UserImport
-      parentRoute: typeof rootRoute
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutLazyImport
+    '/control': {
+      id: '/control'
+      path: '/control'
+      fullPath: '/control'
+      preLoaderRoute: typeof ControlImport
       parentRoute: typeof rootRoute
     }
     '/billing/$billingId': {
@@ -109,18 +83,14 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
   '/billings': typeof BillingsRoute
-  '/constants': typeof ConstantsRoute
-  '/user': typeof UserRoute
-  '/about': typeof AboutLazyRoute
+  '/control': typeof ControlRoute
   '/billing/$billingId': typeof BillingBillingIdRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
   '/billings': typeof BillingsRoute
-  '/constants': typeof ConstantsRoute
-  '/user': typeof UserRoute
-  '/about': typeof AboutLazyRoute
+  '/control': typeof ControlRoute
   '/billing/$billingId': typeof BillingBillingIdRoute
 }
 
@@ -128,55 +98,30 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
   '/billings': typeof BillingsRoute
-  '/constants': typeof ConstantsRoute
-  '/user': typeof UserRoute
-  '/about': typeof AboutLazyRoute
+  '/control': typeof ControlRoute
   '/billing/$billingId': typeof BillingBillingIdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/billings'
-    | '/constants'
-    | '/user'
-    | '/about'
-    | '/billing/$billingId'
+  fullPaths: '/' | '/billings' | '/control' | '/billing/$billingId'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/billings'
-    | '/constants'
-    | '/user'
-    | '/about'
-    | '/billing/$billingId'
-  id:
-    | '__root__'
-    | '/'
-    | '/billings'
-    | '/constants'
-    | '/user'
-    | '/about'
-    | '/billing/$billingId'
+  to: '/' | '/billings' | '/control' | '/billing/$billingId'
+  id: '__root__' | '/' | '/billings' | '/control' | '/billing/$billingId'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
   BillingsRoute: typeof BillingsRoute
-  ConstantsRoute: typeof ConstantsRoute
-  UserRoute: typeof UserRoute
-  AboutLazyRoute: typeof AboutLazyRoute
+  ControlRoute: typeof ControlRoute
   BillingBillingIdRoute: typeof BillingBillingIdRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
   BillingsRoute: BillingsRoute,
-  ConstantsRoute: ConstantsRoute,
-  UserRoute: UserRoute,
-  AboutLazyRoute: AboutLazyRoute,
+  ControlRoute: ControlRoute,
   BillingBillingIdRoute: BillingBillingIdRoute,
 }
 
@@ -194,9 +139,7 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/billings",
-        "/constants",
-        "/user",
-        "/about",
+        "/control",
         "/billing/$billingId"
       ]
     },
@@ -206,14 +149,8 @@ export const routeTree = rootRoute
     "/billings": {
       "filePath": "billings.tsx"
     },
-    "/constants": {
-      "filePath": "constants.tsx"
-    },
-    "/user": {
-      "filePath": "user.tsx"
-    },
-    "/about": {
-      "filePath": "about.lazy.tsx"
+    "/control": {
+      "filePath": "control.tsx"
     },
     "/billing/$billingId": {
       "filePath": "billing.$billingId.tsx"
