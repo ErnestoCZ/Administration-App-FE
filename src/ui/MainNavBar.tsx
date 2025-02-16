@@ -18,6 +18,7 @@ const StyledNavBarBox = styled.div`
   margin-left: 5px;
   border-radius: 5px;
   height: 40px;
+  color: ${props => props.theme.colors.secondary};
 `;
 
 export const MainNavBar: FC = () => {
@@ -32,7 +33,7 @@ export const MainNavBar: FC = () => {
           <Link to="/billings">Billings</Link>
         </StyledNavBarBox>
 
-        <StyledNavBarBox style={{ marginLeft: 'auto' }}>User</StyledNavBarBox>
+        <StyledNavBarBox style={{ marginLeft: 'auto' }}>Logged in as User</StyledNavBarBox>
       </StyledMainNavBar>
     </>
   );
