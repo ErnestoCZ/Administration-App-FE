@@ -4,7 +4,7 @@ import { FC, PropsWithChildren } from 'react';
 import { LinkProps } from '@chakra-ui/react';
 
 export const StyledLink = styled(TanStackLink)`
-  color: #000;
+  color: ${props => props.theme.colors.secondary};
   text-decoration: none;
   display: flex;
   justify-content: center;
