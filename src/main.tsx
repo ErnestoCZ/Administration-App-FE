@@ -26,12 +26,12 @@ const queryClient = new QueryClient();
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <Provider>
-        <ThemeProvider theme={StyledComponentTheme}>
-          <RouterProvider router={router} />
-          <ReactQueryDevtools initialIsOpen={false} />
-        </ThemeProvider>
-      </Provider>
+        <Provider>
+          <ThemeProvider theme={StyledComponentTheme}>
+            <RouterProvider router={router} />
+            <ReactQueryDevtools initialIsOpen={false} />
+          </ThemeProvider>
+        </Provider>
     </QueryClientProvider>
   </StrictMode>,
 );
