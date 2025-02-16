@@ -1,6 +1,8 @@
 export const StyledComponentTheme = {
   colors: {
     primary: "navy",
-    secondary: "none"
+    secondary: "white",
+    warning: 'orange',
+    danger: 'red'
   }
 };
