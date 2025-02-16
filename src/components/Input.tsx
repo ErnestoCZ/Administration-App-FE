@@ -1,7 +1,7 @@
-import { FC } from 'react';
+import { ComponentProps, CSSProperties, FC } from 'react';
 import { styled } from 'styled-components';
 
-type width = string;
+type InputProps = ComponentProps<'input'> & CSSProperties
 
 export const StyledInput = styled.input`
   border-radius: 10px;
@@ -11,7 +11,7 @@ export const StyledInput = styled.input`
   transition: 300ms;
   height: auto;
   max-height: 50px;
-  width: ${(props) => props.width};
+  width: ${(props) => props.width ? props.width : '100%'};
 
   &:hover {
     background-color: #f0f0f0;
@@ -20,37 +20,11 @@ export const StyledInput = styled.input`
   }
 `;
 
-interface InputProps {
-  id?: string;
-  type?: 'text' | 'password' | 'email' | 'date';
-  placeholder?: string;
-  value?: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
-  defaultValue?: string;
-  width?: width;
-}
 
-export const Input: FC<InputProps> = ({
-  id,
-  type,
-  placeholder,
-  value,
-  onChange,
-  onBlur,
-  defaultValue,
-  width,
-}) => {
+export const Input: FC<InputProps> = ({...rest}) => {
   return (
     <StyledInput
-      id={id}
-      type={type}
-      placeholder={placeholder}
-      value={value}
-      onChange={onChange}
-      onBlur={onBlur}
-      defaultValue={defaultValue}
-      width={width}
+      {...rest}
     />
   );
 };
