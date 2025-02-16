@@ -6,8 +6,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { InputController } from '@/Controller/InputController';
 import { addUserFormSchema, addUserFormValues } from '@/models/types';
 import { Stack } from '@chakra-ui/react';
-import { useMutation } from '@apollo/client';
-import { SAVE_USER } from '@/GraphQL/user.queries';
 
 export const UserInputForm: FC = () => {
   const {
@@ -19,21 +17,10 @@ export const UserInputForm: FC = () => {
     errors: {},
   });
 
-  const [newUserMutation] = useMutation(SAVE_USER);
 
   const onSubmitHandler: SubmitHandler<addUserFormValues> = async (
     data: addUserFormValues,
   ) => {
-    const mutationResponse = await newUserMutation({
-      variables: {
-        userData: {
-          firstName: data.firstName,
-          lastName: data.lastName,
-          email: data.email,
-        },
-      },
-    });
-    console.log(mutationResponse.errors);
   };
 
   return (
