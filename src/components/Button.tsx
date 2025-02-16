@@ -1,4 +1,4 @@
-import React, { FC , ComponentProps, CSSProperties, PropsWithChildren} from 'react';
+import { FC , ComponentProps, CSSProperties, PropsWithChildren} from 'react';
 import styled from 'styled-components';
 
 type ButtonProps = ComponentProps<'button'> & CSSProperties;
