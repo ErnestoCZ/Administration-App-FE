@@ -10,21 +10,19 @@ import styled from 'styled-components';
 
 
 const StyledMainLayoutWrapper = styled.div`
-  background-color: orange;
+  background-color: ${props => props.theme.colors.primary};
   height: 100rem;
 `
 
 const StyledOutletWrapper = styled.div`
-  padding: 1vh;
+  padding: 1em;
   width: 100%;
   height: 70%;
 `
-
 export const MainLayout: FC = () => {
   return (
     <>
     <StyledMainLayoutWrapper>
-
       <Stack flexDirection='column'>
         <Header>
           <Logo src={reactLogo} alt={'logo'} spinleft={false} />
