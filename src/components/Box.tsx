@@ -5,11 +5,11 @@ type BoxProps = ComponentProps<'div'> & CSSProperties;
 
 const StyledBox = styled.div<BoxProps>`
   width: 100%;
-  height: 100%;
-  background-color: cadetblue;
+  height: ${props => props.height || 'auto'};
+  background-color: ${props => props.backgroundColor ? props.backgroundColor : 'none'};
   padding: 1vh;
-  border-radius: 10px;
-  margin: ${props => props.margin}
+  margin: ${props => props.margin};
+  border: 1px solid black
 `
 
 export const Box : FC<PropsWithChildren<BoxProps>> = ({children, ...rest}) => {
