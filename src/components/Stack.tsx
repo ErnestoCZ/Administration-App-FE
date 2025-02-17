@@ -17,9 +17,9 @@ const StyledStack = styled.div<DivProps>`
   height: 100%;
 `;
 
-export const Stack: FC<PropsWithChildren<DivProps>> = ({children, ...rest }) => {
+export const Stack: FC<PropsWithChildren<DivProps>> = ({children, flexDirection, ...rest }) => {
   return (
-    <StyledStack {...rest}>
+    <StyledStack {...rest} flexDirection={flexDirection}>
       {children}
     </StyledStack>
   );

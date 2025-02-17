@@ -4,7 +4,8 @@ import { useForm } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
 import { Input } from '@/components/Input';
 import List from '@/components/List';
-import { Stack } from '@chakra-ui/react';
+import { InputController } from '@/Controller/InputController';
+import { Stack } from '@/components/Stack';
 
 export const Route = createFileRoute('/billings')({
   component: () => <BillingsPage />,
@@ -23,8 +24,15 @@ const BillingsPage: FC = () => {
 
   return (
     <>
-      <Stack direction={'column'}>
+      <Stack flexDirection='column'>
           <Input placeholder="Search for Billings" onChange={onSearchChange} />
+          <form>
+            <Stack flexDirection='row'>
+              <InputController type='date' control={control} name='fromDate' />
+              <InputController type='date' control={control} name='toDate'/>
+
+            </Stack>
+          </form>
 
 
         <List>

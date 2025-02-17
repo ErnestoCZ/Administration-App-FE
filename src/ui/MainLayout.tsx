@@ -36,10 +36,6 @@ export const MainLayout: FC = () => {
         </StyledOutletWrapper>
         {/* <Footer>Footer</Footer> */}
       </Stack>
-
-
-
-
     </StyledMainLayoutWrapper>
     </>
   );
