@@ -1,9 +1,8 @@
-import { FC , ComponentProps, CSSProperties, PropsWithChildren} from 'react';
+import { FC , PropsWithChildren} from 'react';
 import styled from 'styled-components';
+import {Button as AriaButton , ButtonProps} from 'react-aria-components'
 
-type ButtonProps = ComponentProps<'button'> & CSSProperties;
-
-export const StyledButton = styled.button<ButtonProps>`
+export const StyledButton = styled(AriaButton)<ButtonProps>`
   height: auto;
   width: auto;
   margin: 0px;
