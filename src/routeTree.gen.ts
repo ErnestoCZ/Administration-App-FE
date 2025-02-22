@@ -13,6 +13,7 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as TestImport } from './routes/test'
 import { Route as ControlImport } from './routes/control'
 import { Route as BillingsImport } from './routes/billings'
 import { Route as BillingBillingIdImport } from './routes/billing.$billingId'
@@ -22,6 +23,11 @@ import { Route as BillingBillingIdImport } from './routes/billing.$billingId'
 const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
+
+const TestRoute = TestImport.update({
+  path: '/test',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const ControlRoute = ControlImport.update({
   path: '/control',
@@ -68,6 +74,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ControlImport
       parentRoute: typeof rootRoute
     }
+    '/test': {
+      id: '/test'
+      path: '/test'
+      fullPath: '/test'
+      preLoaderRoute: typeof TestImport
+      parentRoute: typeof rootRoute
+    }
     '/billing/$billingId': {
       id: '/billing/$billingId'
       path: '/billing/$billingId'
@@ -84,6 +97,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
   '/billings': typeof BillingsRoute
   '/control': typeof ControlRoute
+  '/test': typeof TestRoute
   '/billing/$billingId': typeof BillingBillingIdRoute
 }
 
@@ -91,6 +105,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
   '/billings': typeof BillingsRoute
   '/control': typeof ControlRoute
+  '/test': typeof TestRoute
   '/billing/$billingId': typeof BillingBillingIdRoute
 }
 
@@ -99,15 +114,22 @@ export interface FileRoutesById {
   '/': typeof IndexLazyRoute
   '/billings': typeof BillingsRoute
   '/control': typeof ControlRoute
+  '/test': typeof TestRoute
   '/billing/$billingId': typeof BillingBillingIdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/billings' | '/control' | '/billing/$billingId'
+  fullPaths: '/' | '/billings' | '/control' | '/test' | '/billing/$billingId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/billings' | '/control' | '/billing/$billingId'
-  id: '__root__' | '/' | '/billings' | '/control' | '/billing/$billingId'
+  to: '/' | '/billings' | '/control' | '/test' | '/billing/$billingId'
+  id:
+    | '__root__'
+    | '/'
+    | '/billings'
+    | '/control'
+    | '/test'
+    | '/billing/$billingId'
   fileRoutesById: FileRoutesById
 }
 
@@ -115,6 +137,7 @@ export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
   BillingsRoute: typeof BillingsRoute
   ControlRoute: typeof ControlRoute
+  TestRoute: typeof TestRoute
   BillingBillingIdRoute: typeof BillingBillingIdRoute
 }
 
@@ -122,6 +145,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
   BillingsRoute: BillingsRoute,
   ControlRoute: ControlRoute,
+  TestRoute: TestRoute,
   BillingBillingIdRoute: BillingBillingIdRoute,
 }
 
@@ -140,6 +164,7 @@ export const routeTree = rootRoute
         "/",
         "/billings",
         "/control",
+        "/test",
         "/billing/$billingId"
       ]
     },
@@ -151,6 +176,9 @@ export const routeTree = rootRoute
     },
     "/control": {
       "filePath": "control.tsx"
+    },
+    "/test": {
+      "filePath": "test.tsx"
     },
     "/billing/$billingId": {
       "filePath": "billing.$billingId.tsx"
