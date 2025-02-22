@@ -1,46 +1,51 @@
-import { addUserFormValues, User } from '../models/types';
-import { baseAddress } from './apiConstants';
-import { z } from 'zod';
+import { UUID } from '@/types/types';
+import axios from 'axios';
+import z from 'zod';
 
-export const UserList = z.array(User);
-export type UserList = z.infer<typeof UserList>;
+const UserSchema = z.object({
+  firstName: z.string(),
+  lastName: z.string(),
+  email: z.string(),
+});
+type User = z.infer<typeof UserSchema>;
 
-export async function getUsers(): Promise<User[]> {
-  const res = await fetch(`${baseAddress}/users`, {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-  });
+const axiosInstance = axios.create({
+  baseURL: 'http://localhost:3000/',
+  headers: { 'Content-Type': 'application/json' },
+});
 
-  if (!res.ok) {
-    throw new Error('Error fetching users');
+export const getAllUserService = async (): Promise<User[]> => {
+  const response = await axiosInstance.get('v1/users', {});
+
+  console.log(response);
+
+  if (response.statusText === 'OK') {
+    const parsedUsers = UserSchema.array().parse(response.data);
+    return parsedUsers;
+  } else {
+    throw new Error('Error by fetching user');
   }
-  const userList: User[] = await UserList.parse(await res.json());
+};
 
-  return userList;
-}
+export const getSingleUserByIdService = async (id: UUID): Promise<User> => {
+  const response = await axiosInstance.get(`v1/users/${id}`, {});
+  console.log(response.request);
 
-export async function addUser(user: addUserFormValues): Promise<User> {
-  const res = await fetch(`${baseAddress}/users`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-    body: JSON.stringify(user),
-  });
-
-  if (!res.ok) {
-    throw new Error('Error adding user');
+  if (response.statusText === 'OK') {
+    const parsedUser = UserSchema.parse(response.data);
+    return parsedUser;
+  } else {
+    throw new Error('Error by fetching single user by id');
   }
+};
 
-  return await User.parse(await res.json());
-}
+export const addUserService = async (user: any): Promise<User> => {
+  const response = await axiosInstance.post('v1/users/', user);
 
-export async function deleteUser(id: string): Promise<void> {
-  const res = await fetch(`${baseAddress}/users/${id}`, {
-    method: 'DELETE',
-    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-  });
-
-  if (!res.ok) {
-    throw new Error('Error deleting user');
+  console.log(response);
+  if (response.statusText === 'Created') {
+    return UserSchema.parse(response.data);
+  } else {
+    throw new Error('Failed to add new useer');
   }
-  return await res.json();
-}
+};
