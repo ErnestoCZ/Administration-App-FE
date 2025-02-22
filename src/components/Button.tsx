@@ -1,6 +1,6 @@
-import { FC , PropsWithChildren} from 'react';
+import { FC, PropsWithChildren } from 'react';
 import styled from 'styled-components';
-import {Button as AriaButton , ButtonProps} from 'react-aria-components'
+import { Button as AriaButton, ButtonProps } from 'react-aria-components';
 
 export const StyledButton = styled(AriaButton)<ButtonProps>`
   height: auto;
@@ -10,13 +10,12 @@ export const StyledButton = styled(AriaButton)<ButtonProps>`
   border-radius: 5px;
   justify-content: center;
   align-content: center;
+  background-color: white;
 `;
 
-
-export const Button: FC<PropsWithChildren<ButtonProps>> = ({children}) => {
-  return (
-    <StyledButton>
-      {children}
-    </StyledButton>
-  );
+export const Button: FC<PropsWithChildren<ButtonProps>> = ({
+  children,
+  ...rest
+}) => {
+  return <StyledButton {...rest}>{children}</StyledButton>;
 };
